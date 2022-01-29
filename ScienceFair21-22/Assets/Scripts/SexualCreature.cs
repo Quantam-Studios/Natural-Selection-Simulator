@@ -8,6 +8,7 @@ public class SexualCreature : MonoBehaviour
     [Header("Trait Values")]
     public float speed;
     public float size;
+    public bool isFemale;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -24,6 +25,11 @@ public class SexualCreature : MonoBehaviour
     private Vector2 targetPos;
     private float timeBtwDecision;
     public float setTimeBtwDecision;
+    // PERIODIC BOUNDS
+    public float setHitBoundsTime;
+    private float hitBoundsTime;
+    public bool swapSides;
+    public int initialLayer;
 
     // MOVEMENT SETTINGS
     [Header("Movement Values")]
@@ -54,10 +60,17 @@ public class SexualCreature : MonoBehaviour
     void Start()
     {
         //Initialize values
+        // Set size based on the size gene
         transform.localScale = new Vector3(size, size, size);
         readyForRep = false;
+        // allow movement
         move = true;
+        // reset timer of decisions
         timeBtwDecision = 0;
+        // reset swap side bool
+        swapSides = false;
+        // Set initialLayer
+        initialLayer = gameObject.layer;
     }
 
     // Update is called once per frame
@@ -162,7 +175,26 @@ public class SexualCreature : MonoBehaviour
         if (energy >= minEnergyForRep)
             readyForRep = true;
         else
-            readyForRep = false;    
+            readyForRep = false;
+
+        // PERIODIC BOUNDS
+        // when the swapSides bool is true then start a timer that will wait for the creature to swap sides
+        // this allows the creature to never become stuck in an endless state of swapping sides while also allowing normal sensing
+        if (swapSides)
+        {
+            // Inititalize the count down timer
+            hitBoundsTime = setHitBoundsTime;
+            // Count down
+            hitBoundsTime -= Time.deltaTime;
+            // If hitBoundsTime hits 0
+            if (hitBoundsTime <= 0)
+            {
+                // Set Creature layer to its original layer
+                gameObject.layer = initialLayer;
+                // Stop the countdown by setting swapSides to false
+                swapSides = false;
+            }
+        }
     }
 
     // Gnerate new position 
@@ -195,6 +227,17 @@ public class SexualCreature : MonoBehaviour
 
             // destroy the food
             Destroy(col.gameObject);
+        }
+
+        // Collision with periodic bounds
+        // Deals with the layers
+        // Does NOT deal with moving of the creature
+        if(col.gameObject.tag == "Periodic")
+        {
+            // Set Creature to a layer that can't be interacted with by periodicBounds layer
+            gameObject.layer = 11;
+            // Start timer to move back to original layer 
+            swapSides = true;
         }
     }
 }

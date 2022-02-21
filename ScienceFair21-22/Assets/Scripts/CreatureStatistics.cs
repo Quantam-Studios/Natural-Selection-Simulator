@@ -13,14 +13,21 @@ public class CreatureStatistics : MonoBehaviour
     public static int allTimeFemaleCreatureCount;
     public static int allTimeMaleCreatureCount;
     public static int allTimeSexualCreatureCount;
+    // Aseuxal Creature Counts
+    public static int asexualCreatureCount;
+    public static int allTimeAsexualCreatureCount;
 
     // TEXT OBJECTS FOR DISPLAYING STATISTICS
+    // Sexual
     public Text sexualCreatureCountText;
     public Text maleSexualCreatureCountText;
     public Text femaleSexualCreatureCountText;
     public Text allTimeSexualCreatureCountText;
     public Text allTimeMaleSexualCreatureCountText;
     public Text allTimeFemaleSexualCreatureCountText;
+    // Asexual
+    public Text asexualCreatureCountText;
+    public Text allTimeAsexualCreatureCountText;
 
     private void Start()
     {
@@ -31,6 +38,17 @@ public class CreatureStatistics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Update relevant statistics
+        if (GeneralManager.sexual)
+            SexualCreatureTextUpdate();
+        if (GeneralManager.asexual)
+            AsexualCreatureTextUpdate();
+    }
+
+    // Update sexual statistics text
+    void SexualCreatureTextUpdate()
+    {
+        // SEXUAL STATS
         // Update the total sexual creature count text
         sexualCreatureCountText.text = "Total Sexual Creatures: " + sexualCreatureCount.ToString();
         // Update the total male sexual creature count text
@@ -43,5 +61,15 @@ public class CreatureStatistics : MonoBehaviour
         allTimeMaleSexualCreatureCountText.text = "Total Male Creatures Born: " + allTimeMaleCreatureCount.ToString();
         // Update the all time total female sexual creature count text
         allTimeFemaleSexualCreatureCountText.text = "Total Female Creatures Born: " + allTimeFemaleCreatureCount.ToString();
+    }
+
+    // Update asexual statistics text
+    void AsexualCreatureTextUpdate()
+    {
+        // ASEXUAL STATS
+        // Update the total asexual creature count text
+        asexualCreatureCountText.text = "Total Asexual Creatures: " + asexualCreatureCount.ToString();
+        // Update the all time total asexual creature count text
+        allTimeAsexualCreatureCountText.text = "Total Asexual Creatures Born: " + allTimeAsexualCreatureCount.ToString();
     }
 }

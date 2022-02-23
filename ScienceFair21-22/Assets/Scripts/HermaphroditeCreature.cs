@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SexualCreatureFemale : MonoBehaviour
+public class HermaphroditeCreature   : MonoBehaviour
 {
     // TRAITS
     [Header("Trait Values")]
     public float speed;
     public float size;
-    public string[] chromosomes;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -22,6 +21,7 @@ public class SexualCreatureFemale : MonoBehaviour
     public float energy;
     public bool readyForRep;
     private float timeBtwRep;
+
     // MOVEMENT 
     public bool move;
     private Vector2 targetPos;
@@ -61,8 +61,7 @@ public class SexualCreatureFemale : MonoBehaviour
     private Vector2 mateObjectPos;
 
     // REPRODUCTION
-    public GameObject SexualMale;
-    public GameObject SexualFemale;
+    public GameObject Hermaphrodite;
     public float setTimeBtwRep;
     private Transform parentObjectOfOffspring;
 
@@ -81,19 +80,13 @@ public class SexualCreatureFemale : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
-        // Set chromosomes
-        chromosomes = new string[2];
-        chromosomes[0] = "X";
-        chromosomes[1] = "X";
         // Set timeBtwRep
         timeBtwRep = setTimeBtwRep;
         // Update statistics
-        CreatureStatistics.sexualCreatureCount += 1;
-        CreatureStatistics.femaleSexualCreatureCount += 1;
-        CreatureStatistics.allTimeFemaleCreatureCount += 1;
-        CreatureStatistics.allTimeSexualCreatureCount += 1;
-        // Set parentObjectOfOffspring to the object holding all SEXUAL creatures
-        parentObjectOfOffspring = GameObject.FindGameObjectWithTag("SexualCreatureHolder").transform;
+        CreatureStatistics.allTimeHermaphroditeCreatureCount += 1;
+        CreatureStatistics.hermaphroditeCreatureCount += 1;
+        // Set parentObjectOfOffspring to the object holding all HERMAPHRODITE creatures
+        parentObjectOfOffspring = GameObject.FindGameObjectWithTag("HermaphroditeHolder").transform;
     }
 
     // Update is called once per frame
@@ -202,8 +195,7 @@ public class SexualCreatureFemale : MonoBehaviour
         if (energy <= 0)
         {
             // Update statistics
-            CreatureStatistics.sexualCreatureCount -= 1;
-            CreatureStatistics.femaleSexualCreatureCount -= 1;
+            CreatureStatistics.hermaphroditeCreatureCount -= 1;
             Destroy(gameObject);
         }
     }
@@ -241,12 +233,12 @@ public class SexualCreatureFemale : MonoBehaviour
                 } // If Mating is viable than go to mate.
                 else
                 {
-                    if (matesClose == true && readyForRep)
+                    if (matesClose == true && readyForRep == true)
                     {
                         currentState = "GetMate";
                         GameObject potentialMate = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).gameObject;
                         // If the sensed potential mate can also mate then move to the mate.
-                        if (potentialMate.GetComponent<SexualCreatureMale>().currentState == "GetMate")
+                        if (potentialMate.GetComponent<HermaphroditeCreature>().currentState == "GetMate")
                         {
                             mateObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).transform.position;
                         }
@@ -278,39 +270,20 @@ public class SexualCreatureFemale : MonoBehaviour
     }
 
     // Reproduce
-    void reproduce(SexualCreatureMale mateTraits)
+    void reproduce(HermaphroditeCreature mateTraits)
     {
-        // Decide Sex Of Offspring
-        int randChromosome = Random.Range(0, 2);
-        string donatedChromosome = mateTraits.chromosomes[randChromosome];
-
-        // FINAL SEX OF OFFSPRING
-        string[] offspringChromosomes = new string[2];
-        offspringChromosomes[0] = "X";
-        offspringChromosomes[1] = donatedChromosome;
-
         // Determine Speed Of Offspring
-        float offspringSpeed = (mateTraits.speed + speed)/2;
+        float offspringSpeed = (mateTraits.speed + speed) / 2;
 
         // Determine Size Of Offspring 
-        float offspringSize = (mateTraits.size + size)/2;
+        float offspringSize = (mateTraits.size + size) / 2;
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
-        if (offspringChromosomes[1] == "Y")
-        {
-            // the offspring should be a MALE
-            offspring = Instantiate(SexualMale, transform.position, Quaternion.identity, parentObjectOfOffspring);
-            offspring.GetComponent<SexualCreatureMale>().size = offspringSize;
-            offspring.GetComponent<SexualCreatureMale>().speed = offspringSpeed;
-        }
-        else if(offspringChromosomes[1] == "X")
-        {
-            // the offspring should be a FEMALE
-            offspring = Instantiate(SexualFemale, transform.position, Quaternion.identity, parentObjectOfOffspring);
-            offspring.GetComponent<SexualCreatureFemale>().size = offspringSize;
-            offspring.GetComponent<SexualCreatureFemale>().speed = offspringSpeed;
-        }
+        offspring = Instantiate(Hermaphrodite, transform.position, Quaternion.identity, parentObjectOfOffspring);
+        offspring.GetComponent<HermaphroditeCreature>().size = offspringSize;
+        offspring.GetComponent<HermaphroditeCreature>().speed = offspringSpeed;
+
         energy -= energyForRep;
         currentState = "Wander";
     }
@@ -319,12 +292,12 @@ public class SexualCreatureFemale : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         // If Creature hits another alike Creature and Is in the GetMate State
-        if (col.gameObject.tag == "Male" && currentState == "GetMate")
+        if (col.gameObject.tag == "HermaphroditeCreature" && currentState == "GetMate")
         {
             // Can Creature Reproduce?
             if (readyForRep == true)
             {
-                reproduce(col.gameObject.GetComponent<SexualCreatureMale>());
+                reproduce(col.gameObject.GetComponent<HermaphroditeCreature>());
                 timeBtwRep = setTimeBtwRep;
             }
         }
@@ -351,4 +324,5 @@ public class SexualCreatureFemale : MonoBehaviour
         }
     }
 }
+
 

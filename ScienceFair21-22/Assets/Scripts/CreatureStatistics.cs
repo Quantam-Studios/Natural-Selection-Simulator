@@ -16,9 +16,13 @@ public class CreatureStatistics : MonoBehaviour
     // Aseuxal Creature Counts
     public static int asexualCreatureCount;
     public static int allTimeAsexualCreatureCount;
+    // Hermaphrodite Creature Counts
+    public static int hermaphroditeCreatureCount;
+    public static int allTimeHermaphroditeCreatureCount;
 
     // TEXT OBJECTS FOR DISPLAYING STATISTICS
     // Sexual
+    [Header("Sexual Stat Text")]
     public Text sexualCreatureCountText;
     public Text maleSexualCreatureCountText;
     public Text femaleSexualCreatureCountText;
@@ -26,8 +30,13 @@ public class CreatureStatistics : MonoBehaviour
     public Text allTimeMaleSexualCreatureCountText;
     public Text allTimeFemaleSexualCreatureCountText;
     // Asexual
+    [Header("Asexual Stat Text")]
     public Text asexualCreatureCountText;
     public Text allTimeAsexualCreatureCountText;
+    // Hermaphrodite
+    [Header("Hermaphrodite Stat Text")]
+    public Text hermaphroditeCreatureCountText;
+    public Text allTimeHermaphroditeCreatureCountText;
 
     private void Start()
     {
@@ -43,6 +52,8 @@ public class CreatureStatistics : MonoBehaviour
             SexualCreatureTextUpdate();
         if (GeneralManager.asexual)
             AsexualCreatureTextUpdate();
+        if (GeneralManager.hermaphrodite)
+            HermaphroditeCreatureTextUpdate();
     }
 
     // Update sexual statistics text
@@ -71,5 +82,15 @@ public class CreatureStatistics : MonoBehaviour
         asexualCreatureCountText.text = "Total Asexual Creatures: " + asexualCreatureCount.ToString();
         // Update the all time total asexual creature count text
         allTimeAsexualCreatureCountText.text = "Total Asexual Creatures Born: " + allTimeAsexualCreatureCount.ToString();
+    }
+
+    // Update hermaphrodite statistics text
+    void HermaphroditeCreatureTextUpdate()
+    {
+        // HERMAPHRODITE STATS
+        // Update the total hermaphrodite creature count text
+        hermaphroditeCreatureCountText.text = "Total Hermpahrodite Creatures: " + hermaphroditeCreatureCount.ToString();
+        // Update the all time total hermaphrodite creature count text
+        allTimeHermaphroditeCreatureCountText.text = "Total Hermaphrodite Creatures Born: " + allTimeHermaphroditeCreatureCount.ToString();
     }
 }

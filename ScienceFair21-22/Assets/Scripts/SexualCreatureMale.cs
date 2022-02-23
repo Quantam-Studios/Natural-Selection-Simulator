@@ -245,6 +245,10 @@ public class SexualCreatureMale : MonoBehaviour
                             mateObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).transform.position;
                         }
                     }
+                    else
+                    {
+                        currentState = "Wander";
+                    }
                 }
             } // If not then wander
             else

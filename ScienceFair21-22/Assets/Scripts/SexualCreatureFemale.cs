@@ -171,7 +171,8 @@ public class SexualCreatureFemale : MonoBehaviour
             // Move to targetPos
             transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
             // This deals with the constant loss of energy from moving
-            energy -= (speed / 2);
+            // size is now factored in because size effects how much energy is needed to move
+            energy -= speed / (1f + size);
         }
         else
         {
@@ -370,11 +371,15 @@ public class SexualCreatureFemale : MonoBehaviour
         // Collision with food
         if (col.gameObject.tag == "Food")
         {
-            // Add energy
-            energy += energyInFood;
-
-            // destroy the food
-            Destroy(col.gameObject);
+            // check size of creature compared to food size
+            // this ensures cratures only wat food that is smaller than them
+            if(size > 0.3f)
+            {
+                // Add energy
+                energy += energyInFood;
+                // destroy the food
+                Destroy(col.gameObject);
+            }
         }
 
         // Collision with periodic bounds

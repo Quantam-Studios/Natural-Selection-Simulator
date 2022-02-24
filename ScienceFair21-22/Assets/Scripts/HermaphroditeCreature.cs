@@ -156,7 +156,8 @@ public class HermaphroditeCreature   : MonoBehaviour
             // Move to targetPos
             transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
             // This deals with the constant loss of energy from moving
-            energy -= (speed / 2);
+            // size is now factored in because size effects how much energy is needed to move
+            energy -= speed / (1f + size);
         }
         else
         {

@@ -107,7 +107,6 @@ MonoBehaviour:
   energyForRep: 5000
   energy: 20000
   readyForRep: 0
-  timeBtwRep: 0
   move: 1
   setTimeBtwDecision: 1
   setHitBoundsTime: 0.1
@@ -134,6 +133,11 @@ MonoBehaviour:
   SexualMale: {fileID: 4255928989356363649, guid: 69206f0874b23624bb73e8c72ade5701, type: 3}
   SexualFemale: {fileID: 3640034823068492545}
   setTimeBtwRep: 5
+  mutationRate: 10
+  minSize: 0.1
+  maxSize: 1.5
+  minSpeed: 1
+  maxSpeed: 8
 --- !u!50 &3640034823068492546
 Rigidbody2D:
   serializedVersion: 4

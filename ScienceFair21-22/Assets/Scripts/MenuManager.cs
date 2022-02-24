@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     // this will close the setup menu, and begin running the simlation with the applied settings
     public void RunSimulation()
     {
+        statisticsMenu.SetActive(true);
         Time.timeScale = 1;
     }
 }

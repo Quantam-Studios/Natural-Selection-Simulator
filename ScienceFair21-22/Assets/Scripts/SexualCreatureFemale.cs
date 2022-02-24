@@ -46,7 +46,7 @@ public class SexualCreatureFemale : MonoBehaviour
     public string currentState;
 
     // SENSORY
-    [Header("Senesory Variables")]
+    [Header("Sensory Variables")]
     public float senseRadius;
     // check for predators
     public bool notSafe;
@@ -61,10 +61,18 @@ public class SexualCreatureFemale : MonoBehaviour
     private Vector2 mateObjectPos;
 
     // REPRODUCTION
+    [Header("Reproduction")]
     public GameObject SexualMale;
     public GameObject SexualFemale;
     public float setTimeBtwRep;
+    // parent object holding all spawned offspring
     private Transform parentObjectOfOffspring;
+    // Mutations
+    public int mutationRate;
+    public float minSize;
+    public float maxSize;
+    public float minSpeed;
+    public float maxSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -291,9 +299,39 @@ public class SexualCreatureFemale : MonoBehaviour
 
         // Determine Speed Of Offspring
         float offspringSpeed = (mateTraits.speed + speed)/2;
+        // determine variation
+        float speedVariation = Random.Range((offspringSpeed * -0.2f), (offspringSpeed * 0.2f));
+        // apply variation
+        offspringSpeed += speedVariation;
+        // mutations of speed
+        int mutateSpeed = Random.Range(0, mutationRate);
+        if (mutateSpeed == 1)
+            // then mutate speed
+            offspringSpeed = Random.Range(1f, 8f);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSpeed< minSpeed)
+            offspringSpeed = minSpeed;
+        if (offspringSpeed > maxSpeed)
+            offspringSpeed = maxSpeed;
 
         // Determine Size Of Offspring 
         float offspringSize = (mateTraits.size + size)/2;
+        // determine variation
+        float sizeVariation = Random.Range((offspringSize * -0.2f), (offspringSize * 0.2f));
+        // apply variation
+        offspringSpeed += sizeVariation;
+        // mutations of size
+        int mutateSize = Random.Range(0, mutationRate);
+        if (mutateSize == 1)
+            // then mutate size
+            offspringSize = Random.Range(0.1f, 1.5f);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSize < minSize)
+            offspringSize = minSize;
+        if (offspringSize > maxSize)
+            offspringSize = maxSize;
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;

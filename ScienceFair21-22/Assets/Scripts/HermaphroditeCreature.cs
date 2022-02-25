@@ -64,6 +64,12 @@ public class HermaphroditeCreature   : MonoBehaviour
     public GameObject Hermaphrodite;
     public float setTimeBtwRep;
     private Transform parentObjectOfOffspring;
+    // Mutations
+    public int mutationRate;
+    public float minSize;
+    public float maxSize;
+    public float minSpeed;
+    public float maxSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -275,9 +281,39 @@ public class HermaphroditeCreature   : MonoBehaviour
     {
         // Determine Speed Of Offspring
         float offspringSpeed = (mateTraits.speed + speed) / 2;
+        // determine variation
+        float speedVariation = Random.Range((offspringSpeed * -0.2f), (offspringSpeed * 0.2f));
+        // apply variation
+        offspringSpeed += speedVariation;
+        // mutations of speed
+        int mutateSpeed = Random.Range(0, mutationRate);
+        if (mutateSpeed == 1)
+            // then mutate speed
+            offspringSpeed = Random.Range(1f, 8f);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSpeed < minSpeed)
+            offspringSpeed = minSpeed;
+        if (offspringSpeed > maxSpeed)
+            offspringSpeed = maxSpeed;
 
         // Determine Size Of Offspring 
         float offspringSize = (mateTraits.size + size) / 2;
+        // determine variation
+        float sizeVariation = Random.Range((offspringSize * -0.2f), (offspringSize * 0.2f));
+        // apply variation
+        offspringSpeed += sizeVariation;
+        // mutations of size
+        int mutateSize = Random.Range(0, mutationRate);
+        if (mutateSize == 1)
+            // then mutate size
+            offspringSize = Random.Range(0.1f, 1.5f);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSize < minSize)
+            offspringSize = minSize;
+        if (offspringSize > maxSize)
+            offspringSize = maxSize;
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
@@ -306,11 +342,15 @@ public class HermaphroditeCreature   : MonoBehaviour
         // Collision with food
         if (col.gameObject.tag == "Food")
         {
-            // Add energy
-            energy += energyInFood;
-
-            // destroy the food
-            Destroy(col.gameObject);
+            // check size of creature compared to food size
+            // this ensures cratures only wat food that is smaller than them
+            if (size > 0.3f)
+            {
+                // Add energy
+                energy += energyInFood;
+                // destroy the food
+                Destroy(col.gameObject);
+            }
         }
 
         // Collision with periodic bounds

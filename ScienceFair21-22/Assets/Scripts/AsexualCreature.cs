@@ -49,6 +49,7 @@ public class AsexualCreature : MonoBehaviour
     // check for predators
     public bool notSafe;
     public LayerMask predators;
+    private Vector2 predatorPos;
     // check for food
     public bool foodClose;
     public LayerMask food;
@@ -115,7 +116,9 @@ public class AsexualCreature : MonoBehaviour
         if (currentState == "Flee")
         {
             // update targetPos to be the opposite of the predators direction
-            // move to targetpos
+            targetPos = predatorPos;
+            // move
+            move = true;
         }
 
         // GETFOOD STATE
@@ -209,6 +212,8 @@ public class AsexualCreature : MonoBehaviour
         } // If not then run away from predator.
         else
         {
+            // get the opposite position and then set to predatorPos
+            predatorPos = Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0).gameObject.transform.position * -1;
             currentState = "Flee";
         }
     }

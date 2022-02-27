@@ -6353,7 +6353,7 @@ GameObject:
   - component: {fileID: 1923594458}
   m_Layer: 0
   m_Name: AsexStartCreatures
-  m_TagString: AsexualCreatureHolder
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6428,6 +6428,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2047309312}
     m_Modifications:
+    - target: {fileID: 7953021320856937346, guid: 56fb923cc8131e042988ed7e2b74361a, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7953021320856937394, guid: 56fb923cc8131e042988ed7e2b74361a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6808,6 +6812,10 @@ PrefabInstance:
     - target: {fileID: 1468433981799301776, guid: 0b5b3b6162965f34f99dacf81bf553fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468433981799301780, guid: 0b5b3b6162965f34f99dacf81bf553fc, type: 3}
+      propertyPath: speed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1468433981799302511, guid: 0b5b3b6162965f34f99dacf81bf553fc, type: 3}
       propertyPath: m_Name

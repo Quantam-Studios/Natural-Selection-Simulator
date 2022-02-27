@@ -120,7 +120,7 @@ MonoBehaviour:
   notSafe: 0
   predators:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 196608
   foodClose: 0
   food:
     serializedVersion: 2
@@ -131,6 +131,11 @@ MonoBehaviour:
     m_Bits: 32768
   Hermaphrodite: {fileID: 5314585045726011185}
   setTimeBtwRep: 5
+  mutationRate: 0
+  minSize: 0
+  maxSize: 0
+  minSpeed: 0
+  maxSpeed: 0
 --- !u!50 &5314585045726011189
 Rigidbody2D:
   serializedVersion: 4

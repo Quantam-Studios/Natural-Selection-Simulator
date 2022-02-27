@@ -121,7 +121,7 @@ MonoBehaviour:
   notSafe: 0
   predators:
     serializedVersion: 2
-    m_Bits: 196608
+    m_Bits: 983040
   foodClose: 0
   food:
     serializedVersion: 2

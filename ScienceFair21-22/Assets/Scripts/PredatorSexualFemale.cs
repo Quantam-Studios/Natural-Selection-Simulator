@@ -348,7 +348,7 @@ public class PredatorSexualFemale : MonoBehaviour
         {
             // check size of predator compared to food size
             // this ensures predators only wat food that is smaller than them
-            if (size > col.gameObject.transform.localScale.x)
+            if (size >= col.gameObject.transform.localScale.x)
             {
                 // Add energy
                 energy += energyInFood;

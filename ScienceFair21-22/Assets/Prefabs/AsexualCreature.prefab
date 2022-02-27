@@ -120,12 +120,11 @@ MonoBehaviour:
   notSafe: 0
   predators:
     serializedVersion: 2
-    m_Bits: 196608
+    m_Bits: 983040
   foodClose: 0
   food:
     serializedVersion: 2
     m_Bits: 128
-  setTimeBtwRep: 5
   asexualCreature: {fileID: 7417844324767125423}
 --- !u!50 &7417844324767125419
 Rigidbody2D:

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsexualCreature : MonoBehaviour
+public class PredatorAsexual : MonoBehaviour
 {
     // TRAITS
     [Header("Trait Values")]
@@ -14,7 +14,7 @@ public class AsexualCreature : MonoBehaviour
     public float minEnergyForRep;
     public float minEnergyToBeHungry;
     public float energyInFood;
-    public float energyToRep;
+    public float energyForRep;
 
     // RUN TIME EFFECTED VARIABLES
     [Header("Simulated Variables")]
@@ -25,6 +25,7 @@ public class AsexualCreature : MonoBehaviour
     private Vector2 targetPos;
     private float timeBtwDecision;
     public float setTimeBtwDecision;
+
     // PERIODIC BOUNDS
     public float setHitBoundsTime;
     private float hitBoundsTime;
@@ -43,20 +44,24 @@ public class AsexualCreature : MonoBehaviour
     public string currentState;
 
     // SENSORY
-    [Header("Senesory Variables")]
+    [Header("Sensory Variables")]
     public float senseRadius;
-    // check for predators
-    public bool notSafe;
-    public LayerMask predators;
-    private Vector2 predatorPos;
     // check for food
     public bool foodClose;
     public LayerMask food;
     private Vector2 foodObjectPos;
 
     // REPRODUCTION
-    public GameObject asexualCreature;
+    [Header("Reproduction")]
+    public GameObject predatorAsexual;
+    // parent object holding all spawned offspring
     private Transform parentObjectOfOffspring;
+    // Mutations
+    public int mutationRate;
+    public float minSize;
+    public float maxSize;
+    public float minSpeed;
+    public float maxSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -74,18 +79,17 @@ public class AsexualCreature : MonoBehaviour
         // Set initialLayer
         initialLayer = gameObject.layer;
         // Update statistics
-        CreatureStatistics.allTimeAsexualCreatureCount += 1;
-        CreatureStatistics.asexualCreatureCount += 1;
-        // Set parentObjectOfOffspring to the object holding all ASEXUAL creatures
-        parentObjectOfOffspring = GameObject.FindGameObjectWithTag("AsexualCreatureHolder").transform;
+
+        // Set parentObjectOfOffspring to the object holding all PREDATOR creatures
+        parentObjectOfOffspring = GameObject.FindGameObjectWithTag("PredatorAsexualHolder").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         // WANDER STATE
-        // this state has the creature wander around the world.
-        // In this state the creature can: Move, Rest.
+        // this state has the predator wander around the world.
+        // In this state the predator can: Move, Rest.
         if (currentState == "Wander")
         {
             // Move or Not
@@ -106,20 +110,9 @@ public class AsexualCreature : MonoBehaviour
             }
         }
 
-        // FLEE STATE
-        // this state has the creature move away from predators.
-        // In this state the creature can: Move.
-        if (currentState == "Flee")
-        {
-            // update targetPos to be the opposite of the predators direction
-            targetPos = predatorPos;
-            // move
-            move = true;
-        }
-
         // GETFOOD STATE
-        // this state has the creature move to the food piece it sensed.
-        // In this state the creature can: Move.
+        // this state has the predator move to the food piece it sensed.
+        // In this state the predator can: Move.
         if (currentState == "GetFood")
         {
             // Set targetPos to the food object.
@@ -152,8 +145,8 @@ public class AsexualCreature : MonoBehaviour
         }
 
         // PERIODIC BOUNDS
-        // when the swapSides bool is true then start a timer that will wait for the creature to swap sides
-        // this allows the creature to never become stuck in an endless state of swapping sides while also allowing normal sensing
+        // when the swapSides bool is true then start a timer that will wait for the predator to swap sides
+        // this allows the predator to never become stuck in an endless state of swapping sides while also allowing normal sensing
         if (swapSides)
         {
             // Inititalize the count down timer
@@ -163,7 +156,7 @@ public class AsexualCreature : MonoBehaviour
             // If hitBoundsTime hits 0
             if (hitBoundsTime <= 0)
             {
-                // Set Creature layer to its original layer
+                // Set Predator layer to its original layer
                 gameObject.layer = initialLayer;
                 // Stop the countdown by setting swapSides to false
                 swapSides = false;
@@ -171,40 +164,39 @@ public class AsexualCreature : MonoBehaviour
         }
 
         // DEATH FROM LACK OF ENERGY
-        // this will run if the energy of the creature ever reaches 0
+        // this will run if the energy of the predator ever reaches 0
         if (energy <= 0)
+        {
+            // Update statistics
+
             Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
     {
         // SENSORY
         // This happens all of the time no matter what, and controls the states.
-        // check for predators
-        notSafe = Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0);
         // check for food
         foodClose = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0);
 
         // DECISION MAKING
-        // priorities: #1 Make sure it is safe, #2 Keep energy up
-        if (notSafe == false)
+        // priorities: #1 Keep energy up
+        if (foodClose == true)
         {
-            // CHeck if food is close and move towards it if so.
             if (foodClose == true)
             {
                 foodObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0).transform.position;
                 currentState = "GetFood";
-            } // If food is not nearby then wander
+            } // If food is not nearby
             else
             {
                 currentState = "Wander";
             }
-        } // If not then run away from predator.
+        } // If not then wander
         else
         {
-            // get the opposite position and then set to predatorPos
-            predatorPos = Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0).gameObject.transform.position * -1;
-            currentState = "Flee";
+            currentState = "Wander";
         }
     }
 
@@ -225,13 +217,13 @@ public class AsexualCreature : MonoBehaviour
         float offspringSize = size;
 
         // Create Offspring
-        GameObject offspring = Instantiate(asexualCreature, transform.position, Quaternion.identity, parentObjectOfOffspring);
-        offspring.GetComponent<AsexualCreature>().size = offspringSize;
-        offspring.GetComponent<AsexualCreature>().speed = offspringSpeed;
-        offspring.GetComponent<AsexualCreature>().energy = 2500;
+        GameObject offspring = Instantiate(predatorAsexual, transform.position, Quaternion.identity, parentObjectOfOffspring);
+        offspring.GetComponent<PredatorAsexual>().size = offspringSize;
+        offspring.GetComponent<PredatorAsexual>().speed = offspringSpeed;
+        offspring.GetComponent<PredatorAsexual>().energy = 2500;
 
         // Reset this creatures state, and take away energy
-        energy -= energyToRep;
+        energy -= energyForRep;
         currentState = "Wander";
     }
 
@@ -239,11 +231,11 @@ public class AsexualCreature : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         // Collision with food
-        if (col.gameObject.CompareTag("Food"))
+        if (food == (food | (1 << col.gameObject.layer)))
         {
-            // check size of creature compared to food size
-            // this ensures cratures only wat food that is smaller than them
-            if (size >= 0.3f)
+            // check size of predator compared to food size
+            // this ensures predators only wat food that is smaller than them
+            if (size >= col.gameObject.transform.localScale.x)
             {
                 // Add energy
                 energy += energyInFood;
@@ -254,20 +246,13 @@ public class AsexualCreature : MonoBehaviour
 
         // Collision with periodic bounds
         // Deals with the layers
-        // Does NOT deal with moving of the creature
+        // Does NOT deal with moving of the predator
         if (col.gameObject.CompareTag("Periodic"))
         {
-            // Set Creature to a layer that can't be interacted with by periodicBounds layer
+            // Set Predator to a layer that can't be interacted with by periodicBounds layer
             gameObject.layer = 11;
             // Start timer to move back to original layer 
             swapSides = true;
         }
-    }
-
-    // When Destroy() is called on this object
-    private void OnDestroy()
-    {
-        // Update Statistics
-        CreatureStatistics.asexualCreatureCount -= 1;
     }
 }

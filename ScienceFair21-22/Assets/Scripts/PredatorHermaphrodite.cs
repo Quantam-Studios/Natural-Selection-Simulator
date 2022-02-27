@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HermaphroditeCreature   : MonoBehaviour
+public class PredatorHermaphrodite : MonoBehaviour
 {
     // TRAITS
     [Header("Trait Values")]
@@ -20,8 +20,7 @@ public class HermaphroditeCreature   : MonoBehaviour
     [Header("Simulated Variables")]
     public float energy;
     public bool readyForRep;
-    private float timeBtwRep;
-
+    public float timeBtwRep;
     // MOVEMENT 
     public bool move;
     private Vector2 targetPos;
@@ -46,12 +45,8 @@ public class HermaphroditeCreature   : MonoBehaviour
     public string currentState;
 
     // SENSORY
-    [Header("Senesory Variables")]
+    [Header("Sensory Variables")]
     public float senseRadius;
-    // check for predators
-    public bool notSafe;
-    public LayerMask predators;
-    private Vector2 predatorPos;
     // check for food
     public bool foodClose;
     public LayerMask food;
@@ -62,8 +57,10 @@ public class HermaphroditeCreature   : MonoBehaviour
     private Vector2 mateObjectPos;
 
     // REPRODUCTION
-    public GameObject Hermaphrodite;
+    [Header("Reproduction")]
+    public GameObject hermaphrodite;
     public float setTimeBtwRep;
+    // parent object holding all spawned offspring
     private Transform parentObjectOfOffspring;
     // Mutations
     public int mutationRate;
@@ -90,18 +87,17 @@ public class HermaphroditeCreature   : MonoBehaviour
         // Set timeBtwRep
         timeBtwRep = setTimeBtwRep;
         // Update statistics
-        CreatureStatistics.allTimeHermaphroditeCreatureCount += 1;
-        CreatureStatistics.hermaphroditeCreatureCount += 1;
-        // Set parentObjectOfOffspring to the object holding all HERMAPHRODITE creatures
-        parentObjectOfOffspring = GameObject.FindGameObjectWithTag("HermaphroditeHolder").transform;
+
+        // Set parentObjectOfOffspring to the object holding all PREDATOR creatures
+        parentObjectOfOffspring = GameObject.FindGameObjectWithTag("PredatorHermaphroditeHolder").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         // WANDER STATE
-        // this state has the creature wander around the world.
-        // In this state the creature can: Move, Rest.
+        // this state has the predator wander around the world.
+        // In this state the predator can: Move, Rest.
         if (currentState == "Wander")
         {
             // Move or Not
@@ -122,20 +118,9 @@ public class HermaphroditeCreature   : MonoBehaviour
             }
         }
 
-        // FLEE STATE
-        // this state has the creature move away from predators.
-        // In this state the creature can: Move.
-        if (currentState == "Flee")
-        {
-            // update targetPos to be the opposite of the predators direction
-            targetPos = predatorPos;
-            // move
-            move = true;
-        }
-
         // GETFOOD STATE
-        // this state has the creature move to the food piece it sensed.
-        // In this state the creature can: Move.
+        // this state has the predator move to the food piece it sensed.
+        // In this state the predator can: Move.
         if (currentState == "GetFood")
         {
             // Set targetPos to the food object.
@@ -145,8 +130,8 @@ public class HermaphroditeCreature   : MonoBehaviour
         }
 
         // GETMATE STATE
-        // this state has the creature move to a potential mate, and reporoduce
-        // In this state the creature can: Move, Reproduce.
+        // this state has the predator move to a potential mate, and reporoduce
+        // In this state the predator can: Move, Reproduce.
         if (currentState == "GetMate")
         {
             // Set targetPos to potential mate
@@ -174,7 +159,7 @@ public class HermaphroditeCreature   : MonoBehaviour
             energy -= (1 * Time.deltaTime);
         }
 
-        // Can Creature Reproduce?
+        // Can Predator Reproduce?
         timeBtwRep -= Time.deltaTime;
         if (energy >= minEnergyForRep && timeBtwRep <= 0)
             readyForRep = true;
@@ -182,8 +167,8 @@ public class HermaphroditeCreature   : MonoBehaviour
             readyForRep = false;
 
         // PERIODIC BOUNDS
-        // when the swapSides bool is true then start a timer that will wait for the creature to swap sides
-        // this allows the creature to never become stuck in an endless state of swapping sides while also allowing normal sensing
+        // when the swapSides bool is true then start a timer that will wait for the predator to swap sides
+        // this allows the predator to never become stuck in an endless state of swapping sides while also allowing normal sensing
         if (swapSides)
         {
             // Inititalize the count down timer
@@ -193,7 +178,7 @@ public class HermaphroditeCreature   : MonoBehaviour
             // If hitBoundsTime hits 0
             if (hitBoundsTime <= 0)
             {
-                // Set Creature layer to its original layer
+                // Set Predator layer to its original layer
                 gameObject.layer = initialLayer;
                 // Stop the countdown by setting swapSides to false
                 swapSides = false;
@@ -201,73 +186,66 @@ public class HermaphroditeCreature   : MonoBehaviour
         }
 
         // DEATH FROM LACK OF ENERGY
-        // this will run if the energy of the creature ever reaches 0
+        // this will run if the energy of the predator ever reaches 0
         if (energy <= 0)
+        {
+            // Update statistics
+
             Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
     {
         // SENSORY
         // This happens all of the time no matter what, and controls the states.
-        // check for predators
-        notSafe = Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0);
         // check for food
         foodClose = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0);
         // check for mates
         matesClose = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0);
 
         // DECISION MAKING
-        // priorities: #1 Make sure it is safe, #2 Keep energy up, #3 Mate
-        if (notSafe == false)
+        // priorities: #1 Keep energy up, #2 Mate
+        // If food or mate is close compare the options
+        if (foodClose == true || matesClose == true)
         {
-            // If food or mate is close compare the options
-            if (foodClose == true || matesClose == true)
+            // Check if Mating is a viable option or if energy is needed.
+            if (energy < minEnergyForRep || energy < minEnergyToBeHungry || !matesClose)
             {
-                // Check if Mating is a viable option or if energy is needed.
-                if (energy < minEnergyForRep || energy < minEnergyToBeHungry || !matesClose)
+                if (foodClose == true)
                 {
-                    if (foodClose == true)
-                    {
-                        foodObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0).transform.position;
-                        currentState = "GetFood";
-                    }
-                    else
-                    {
-                        currentState = "Wander";
-                    }
-                } // If Mating is viable than go to mate.
+                    foodObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0).transform.position;
+                    currentState = "GetFood";
+                }
                 else
                 {
-                    if (matesClose == true && readyForRep == true)
-                    {
-                        currentState = "GetMate";
-                        GameObject potentialMate = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).gameObject;
-                        // If the sensed potential mate can also mate then move to the mate.
-                            // && potentialMate != gameObject checks if the mate in question is not itself.
-                            // This is VITAL because Physics2D.OverlapCircle() returns any objects within the specified LayerMask
-                            // Meaning it can return the object it is being emitted from.
-                            if (potentialMate.GetComponent<HermaphroditeCreature>().currentState == "GetMate" && potentialMate != gameObject)
-                            {
-                                mateObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).transform.position;
-                            }
-                    }
-                    else
-                    {
-                        currentState = "Wander";
-                    }
+                    currentState = "Wander";
                 }
-            } // If not then wander
+            } // If Mating is viable than go to mate.
             else
             {
-                currentState = "Wander";
+                if (matesClose == true && readyForRep)
+                {
+                    currentState = "GetMate";
+                    GameObject potentialMate = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).gameObject;
+                    // If the sensed potential mate can also mate then move to the mate.
+                    // && potentialMate != gameObject checks if the mate in question is not itself.
+                    // This is VITAL because Physics2D.OverlapCircle() returns any objects within the specified LayerMask
+                    // Meaning it can return the object it is being emitted from.
+                    if (potentialMate.GetComponent<PredatorHermaphrodite>().currentState == "GetMate" && potentialMate != gameObject)
+                    {
+                        mateObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, mates, 0).transform.position;
+                    }
+                }
+                else
+                {
+                    currentState = "Wander";
+                }
             }
-        } // If not then run away from predator.
+        } // If not then wander
         else
         {
-            // get the opposite position and then set to predatorPos
-            predatorPos = Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0).gameObject.transform.position * -1;
-            currentState = "Flee";
+            currentState = "Wander";
         }
     }
 
@@ -281,7 +259,7 @@ public class HermaphroditeCreature   : MonoBehaviour
     }
 
     // Reproduce
-    void reproduce(HermaphroditeCreature mateTraits)
+    void reproduce(PredatorHermaphrodite mateTraits)
     {
         // Determine Speed Of Offspring
         float offspringSpeed = (mateTraits.speed + speed) / 2;
@@ -321,9 +299,9 @@ public class HermaphroditeCreature   : MonoBehaviour
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
-        offspring = Instantiate(Hermaphrodite, transform.position, Quaternion.identity, parentObjectOfOffspring);
-        offspring.GetComponent<HermaphroditeCreature>().size = offspringSize;
-        offspring.GetComponent<HermaphroditeCreature>().speed = offspringSpeed;
+        offspring = Instantiate(hermaphrodite, transform.position, Quaternion.identity, parentObjectOfOffspring);
+        offspring.GetComponent<PredatorHermaphrodite>().size = offspringSize;
+        offspring.GetComponent<PredatorHermaphrodite>().speed = offspringSpeed;
 
         energy -= energyForRep;
         currentState = "Wander";
@@ -332,23 +310,23 @@ public class HermaphroditeCreature   : MonoBehaviour
     // COLLISION
     void OnCollisionEnter2D(Collision2D col)
     {
-        // If Creature hits another alike Creature and Is in the GetMate State
-        if (col.gameObject.CompareTag("HermaphroditeCreature") && currentState == "GetMate")
+        // If Predator hits another alike Predator and Is in the GetMate State
+        if (col.gameObject.CompareTag("PredatorHermaphrodite") && currentState == "GetMate")
         {
-            // Can Creature Reproduce?
+            // Can Predator Reproduce?
             if (readyForRep == true)
             {
-                reproduce(col.gameObject.GetComponent<HermaphroditeCreature>());
+                reproduce(col.gameObject.GetComponent<PredatorHermaphrodite>());
                 timeBtwRep = setTimeBtwRep;
             }
         }
 
         // Collision with food
-        if (col.gameObject.CompareTag("Food"))
+        if (food == (food | (1 << col.gameObject.layer)))
         {
-            // check size of creature compared to food size
-            // this ensures cratures only wat food that is smaller than them
-            if (size >= 0.3f)
+            // check size of predator compared to food size
+            // this ensures predators only wat food that is smaller than them
+            if (size >= col.gameObject.transform.localScale.x)
             {
                 // Add energy
                 energy += energyInFood;
@@ -359,22 +337,13 @@ public class HermaphroditeCreature   : MonoBehaviour
 
         // Collision with periodic bounds
         // Deals with the layers
-        // Does NOT deal with moving of the creature
+        // Does NOT deal with moving of the predator
         if (col.gameObject.CompareTag("Periodic"))
         {
-            // Set Creature to a layer that can't be interacted with by periodicBounds layer
+            // Set Predator to a layer that can't be interacted with by periodicBounds layer
             gameObject.layer = 11;
             // Start timer to move back to original layer 
             swapSides = true;
         }
     }
-
-    // When Destroy() is called on this object
-    private void OnDestroy()
-    {
-        // Update Statistics
-        CreatureStatistics.hermaphroditeCreatureCount -= 1;
-    }
 }
-
-

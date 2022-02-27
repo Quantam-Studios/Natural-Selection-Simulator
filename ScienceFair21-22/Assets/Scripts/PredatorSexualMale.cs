@@ -275,7 +275,7 @@ public class PredatorSexualMale : MonoBehaviour
         {
             // check size of predator compared to food size
             // this ensures cratures only wat food that is smaller than them
-            if (size > 0.3f)
+            if (size >= 0.3f)
             {
                 // Add energy
                 energy += energyInFood;

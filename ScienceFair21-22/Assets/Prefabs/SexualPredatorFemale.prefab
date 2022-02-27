@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71daaea65ec7b846a55f292bc746a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   size: 1
   chromosomes: []
   minEnergyForRep: 10000

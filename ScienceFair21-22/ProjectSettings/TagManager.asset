@@ -18,6 +18,10 @@ TagManager:
   - PredatorFemale
   - PredatorMale
   - Periodic
+  - PredatorHermaphroditeHolder
+  - PredatorHermaphrodite
+  - PredatorAsexualHolder
+  - PredatorAsexual
   layers:
   - Default
   - TransparentFX
@@ -37,8 +41,8 @@ TagManager:
   - HermaphroditeCreature
   - PredatorMale
   - PredatorFemale
-  - 
-  - 
+  - PredatorHermaphrodite
+  - PredatorAsexual
   - 
   - 
   - 

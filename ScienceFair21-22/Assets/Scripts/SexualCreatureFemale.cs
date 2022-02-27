@@ -212,12 +212,7 @@ public class SexualCreatureFemale : MonoBehaviour
         // DEATH FROM LACK OF ENERGY
         // this will run if the energy of the creature ever reaches 0
         if (energy <= 0)
-        {
-            // Update statistics
-            CreatureStatistics.sexualCreatureCount -= 1;
-            CreatureStatistics.femaleSexualCreatureCount -= 1;
             Destroy(gameObject);
-        }
     }
 
     private void FixedUpdate()
@@ -363,7 +358,7 @@ public class SexualCreatureFemale : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         // If Creature hits another alike Creature and Is in the GetMate State
-        if (col.gameObject.tag == "Male" && currentState == "GetMate")
+        if (col.gameObject.CompareTag("Male") && currentState == "GetMate")
         {
             // Can Creature Reproduce?
             if (readyForRep == true)
@@ -374,7 +369,7 @@ public class SexualCreatureFemale : MonoBehaviour
         }
 
         // Collision with food
-        if (col.gameObject.tag == "Food")
+        if (col.gameObject.CompareTag("Food"))
         {
             // check size of creature compared to food size
             // this ensures cratures only wat food that is smaller than them
@@ -390,13 +385,21 @@ public class SexualCreatureFemale : MonoBehaviour
         // Collision with periodic bounds
         // Deals with the layers
         // Does NOT deal with moving of the creature
-        if (col.gameObject.tag == "Periodic")
+        if (col.gameObject.CompareTag("Periodic"))
         {
             // Set Creature to a layer that can't be interacted with by periodicBounds layer
             gameObject.layer = 11;
             // Start timer to move back to original layer 
             swapSides = true;
         }
+    }
+
+    // When Destroy() is called on this object
+    private void OnDestroy()
+    {
+        // Update Statistics
+        CreatureStatistics.sexualCreatureCount -= 1;
+        CreatureStatistics.femaleSexualCreatureCount -= 1;
     }
 }
 

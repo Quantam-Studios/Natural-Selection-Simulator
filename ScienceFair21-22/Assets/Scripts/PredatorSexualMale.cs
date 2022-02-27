@@ -260,7 +260,7 @@ public class PredatorSexualMale : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         // If Predator hits another alike Predator and Is in the GetMate State
-        if (col.gameObject.tag == "PredatorFemale" && currentState == "GetMate")
+        if (col.gameObject.CompareTag("PredatorFemale") && currentState == "GetMate")
         {
             // Can Predator Reproduce?
             if (readyForRep == true)
@@ -271,7 +271,7 @@ public class PredatorSexualMale : MonoBehaviour
         }
 
         // Collision with food
-        if (col.gameObject.tag == "AsexualCreature")
+        if (food == (food | (1 << col.gameObject.layer)))
         {
             // check size of predator compared to food size
             // this ensures cratures only wat food that is smaller than them
@@ -287,7 +287,7 @@ public class PredatorSexualMale : MonoBehaviour
         // Collision with periodic bounds
         // Deals with the layers
         // Does NOT deal with moving of the predator
-        if (col.gameObject.tag == "Periodic")
+        if (col.gameObject.CompareTag("Periodic"))
         {
             // Set Predator to a layer that can't be interacted with by periodicBounds layer
             gameObject.layer = 11;

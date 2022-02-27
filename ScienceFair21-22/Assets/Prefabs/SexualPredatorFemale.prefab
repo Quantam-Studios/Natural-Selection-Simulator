@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7953021320856937405}
   - component: {fileID: 7953021320856937346}
   m_Layer: 17
-  m_Name: PredatorFemale
+  m_Name: SexualPredatorFemale
   m_TagString: PredatorFemale
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   foodClose: 0
   food:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 61440
   matesClose: 0
   mates:
     serializedVersion: 2

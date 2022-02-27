@@ -17,6 +17,7 @@ TagManager:
   - PredatorHolder
   - PredatorFemale
   - PredatorMale
+  - Periodic
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodManager : MonoBehaviour
@@ -18,15 +16,15 @@ public class FoodManager : MonoBehaviour
     // the good source gameObject
     public GameObject foodSource;
 
-
-    //public float minDistanceApart;
-    //private Vector3[] foodSourcePositions;
-
     private Transform foodSourcesHolder;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Set inital values from settings selected by user
+        foodSourceAmount = MenuManager.initalFood;
+        setTimeBtwSpawn = MenuManager.foodSpawnRate;
+        // Initialize food
         foodSourcesHolder = gameObject.transform.GetChild(0);
         generateInitialFood();
         timeBtwSpawn = setTimeBtwSpawn;

@@ -213,8 +213,33 @@ public class PredatorAsexual : MonoBehaviour
     void reproduce()
     {
         // Create traits to passdown
+        // SPEED DETERMINATION
         float offspringSpeed = speed;
+        // mutations of speed
+        int mutateSpeed = Random.Range(0, mutationRate);
+        if (mutateSpeed == 1)
+            // then mutate speed
+            offspringSpeed = Random.Range(1f, 8f);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSpeed < minSpeed)
+            offspringSpeed = minSpeed;
+        if (offspringSpeed > maxSpeed)
+            offspringSpeed = maxSpeed;
+
+        // SIZE DETERMINATION
         float offspringSize = size;
+        // mutations of size
+        int mutateSize = Random.Range(0, mutationRate);
+        if (mutateSize == 1)
+            // then mutate size
+            offspringSize = Random.Range(0.1f, 1.5f);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSize < minSize)
+            offspringSize = minSize;
+        if (offspringSize > maxSize)
+            offspringSize = maxSize;
 
         // Create Offspring
         GameObject offspring = Instantiate(predatorAsexual, transform.position, Quaternion.identity, parentObjectOfOffspring);

@@ -111,10 +111,10 @@ MonoBehaviour:
   setHitBoundsTime: 0.1
   swapSides: 0
   initialLayer: 0
-  maxX: 10
-  maxY: 10
-  minX: -10
-  minY: -10
+  maxX: 40
+  maxY: 20
+  minX: -40
+  minY: -20
   currentState: 
   senseRadius: 1.5
   notSafe: 0
@@ -126,6 +126,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   asexualCreature: {fileID: 7417844324767125423}
+  mutationRate: 10
+  minSize: 0.1
+  maxSize: 1.5
+  minSpeed: 1
+  maxSpeed: 8
 --- !u!50 &7417844324767125419
 Rigidbody2D:
   serializedVersion: 4

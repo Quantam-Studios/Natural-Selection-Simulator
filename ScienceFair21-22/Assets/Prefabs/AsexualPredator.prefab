@@ -111,10 +111,10 @@ MonoBehaviour:
   setHitBoundsTime: 0.1
   swapSides: 0
   initialLayer: 0
-  maxX: 10
-  maxY: 10
-  minX: -10
-  minY: -10
+  maxX: 40
+  maxY: 20
+  minX: -40
+  minY: -20
   currentState: 
   senseRadius: 4
   foodClose: 0

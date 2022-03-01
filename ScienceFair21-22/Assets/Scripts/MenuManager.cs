@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
 
     // CREATURE SPAWNING
     public GameObject[] creatures;
+    public static int initalCreatureCount;
 
     // PREDATOR TYPE
     // For interactivity between other scripts
@@ -32,7 +33,7 @@ public class MenuManager : MonoBehaviour
     public GameObject foodManager;
     // Initial Food Amount
     public static int initalFood;
-    // Food SPawn Rate
+    // Food Spawn Rate
     public static float foodSpawnRate;
 
     // Start is called before the first frame update
@@ -90,15 +91,23 @@ public class MenuManager : MonoBehaviour
     {
         // set the inital food count to the value of foodCount if the text is not effectively null
         if(foodCount.text != "")
-            initalFood = Convert.ToInt32(foodCount.text.ToString());
+            initalFood = Convert.ToInt32(foodCount.text);
     }
 
-    // SET FOOD Spawn Rate
+    // SET FOOD SPAWN RATE
     public void SetFoodSpawnRate(InputField spawnRate)
     {
         // set the food spawn rate to value of spawnRate if the text is not effectively null
         if (spawnRate.text != "")
-            foodSpawnRate = float.Parse(spawnRate.text.ToString(), System.Globalization.CultureInfo.InvariantCulture);
+            foodSpawnRate = float.Parse(spawnRate.text, System.Globalization.CultureInfo.InvariantCulture);
     }
 
+    // SET START AMOUNT OF CREATURES
+    public void SetInitialCreatureCount(InputField initialAmount)
+    {
+        if (initialAmount.text != "")
+            initalCreatureCount = Convert.ToInt16(initialAmount.text, System.Globalization.CultureInfo.InvariantCulture);
+        else // default to four creatures
+            initalCreatureCount = 4;
+    }
 }

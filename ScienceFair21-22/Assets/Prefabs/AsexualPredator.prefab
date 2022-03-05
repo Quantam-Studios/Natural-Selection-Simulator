@@ -127,6 +127,8 @@ MonoBehaviour:
   maxSize: 2
   minSpeed: 1
   maxSpeed: 10
+  minSenseRadius: 0.2
+  maxSenseRadius: 1.8
 --- !u!50 &9035383430721153044
 Rigidbody2D:
   serializedVersion: 4

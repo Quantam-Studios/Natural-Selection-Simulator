@@ -8,6 +8,7 @@ public class SexualCreatureMale : MonoBehaviour
     [Header("Trait Values")]
     public float speed;
     public float size;
+    public float senseRadius;
     public string[] chromosomes;
 
     // ENERGY SETTINGS
@@ -46,7 +47,6 @@ public class SexualCreatureMale : MonoBehaviour
 
     // SENSORY
     [Header("Senesory Variables")]
-    public float senseRadius;
     // check for predators
     public bool notSafe;
     public LayerMask predators;

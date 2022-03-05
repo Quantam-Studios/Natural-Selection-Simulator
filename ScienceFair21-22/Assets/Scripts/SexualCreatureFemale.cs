@@ -8,6 +8,7 @@ public class SexualCreatureFemale : MonoBehaviour
     [Header("Trait Values")]
     public float speed;
     public float size;
+    public float senseRadius;
     public string[] chromosomes;
 
     // ENERGY SETTINGS
@@ -47,7 +48,6 @@ public class SexualCreatureFemale : MonoBehaviour
 
     // SENSORY
     [Header("Sensory Variables")]
-    public float senseRadius;
     // check for predators
     public bool notSafe;
     public LayerMask predators;
@@ -69,11 +69,14 @@ public class SexualCreatureFemale : MonoBehaviour
     // parent object holding all spawned offspring
     private Transform parentObjectOfOffspring;
     // Mutations
+    [Header("Mutations")]
     public int mutationRate;
     public float minSize;
     public float maxSize;
     public float minSpeed;
     public float maxSpeed;
+    public float minSenseRadius;
+    public float maxSenseRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -308,7 +311,7 @@ public class SexualCreatureFemale : MonoBehaviour
         int mutateSpeed = Random.Range(0, mutationRate);
         if (mutateSpeed == 1)
             // then mutate speed
-            offspringSpeed = Random.Range(1f, 8f);
+            offspringSpeed = Random.Range(minSpeed, maxSpeed);
         // final check
         // this makes sure the final traits don't go over set maximum or minimum values
         if (offspringSpeed< minSpeed)
@@ -326,13 +329,31 @@ public class SexualCreatureFemale : MonoBehaviour
         int mutateSize = Random.Range(0, mutationRate);
         if (mutateSize == 1)
             // then mutate size
-            offspringSize = Random.Range(0.1f, 1.5f);
+            offspringSize = Random.Range(minSize, maxSize);
         // final check
         // this makes sure the final traits don't go over set maximum or minimum values
         if (offspringSize < minSize)
             offspringSize = minSize;
         if (offspringSize > maxSize)
             offspringSize = maxSize;
+
+        // Determine Sense Radius Of Offspring
+        float offspringSenseRadius = (mateTraits.senseRadius + senseRadius)/2;
+        // determine variation
+        float senseRadiusVariation = Random.Range((offspringSenseRadius * -0.2f), (offspringSenseRadius * 0.2f));
+        // apply variation
+        offspringSenseRadius += senseRadiusVariation;
+        // mutations of sense radius
+        int mutateSenseRadius = Random.Range(0, mutationRate);
+        if (mutateSize == 1)
+            // then mutate sense radius
+            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSize < minSenseRadius)
+            offspringSize = minSenseRadius;
+        if (offspringSize > maxSenseRadius)
+            offspringSize = maxSenseRadius;
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
@@ -342,6 +363,7 @@ public class SexualCreatureFemale : MonoBehaviour
             offspring = Instantiate(SexualMale, transform.position, Quaternion.identity, parentObjectOfOffspring);
             offspring.GetComponent<SexualCreatureMale>().size = offspringSize;
             offspring.GetComponent<SexualCreatureMale>().speed = offspringSpeed;
+            offspring.GetComponent<SexualCreatureMale>().senseRadius = offspringSenseRadius;
         }
         else if(offspringChromosomes[1] == "X")
         {
@@ -349,6 +371,7 @@ public class SexualCreatureFemale : MonoBehaviour
             offspring = Instantiate(SexualFemale, transform.position, Quaternion.identity, parentObjectOfOffspring);
             offspring.GetComponent<SexualCreatureFemale>().size = offspringSize;
             offspring.GetComponent<SexualCreatureFemale>().speed = offspringSpeed;
+            offspring.GetComponent<SexualCreatureFemale>().senseRadius = offspringSenseRadius;
         }
         energy -= energyForRep;
         currentState = "Wander";

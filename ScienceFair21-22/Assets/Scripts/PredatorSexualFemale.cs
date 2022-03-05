@@ -65,11 +65,14 @@ public class PredatorSexualFemale : MonoBehaviour
     // parent object holding all spawned offspring
     private Transform parentObjectOfOffspring;
     // Mutations
+    [Header("Mutations")]
     public int mutationRate;
     public float minSize;
     public float maxSize;
     public float minSpeed;
     public float maxSpeed;
+    public float minSenseRadius;
+    public float maxSenseRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -309,6 +312,24 @@ public class PredatorSexualFemale : MonoBehaviour
         if (offspringSize > maxSize)
             offspringSize = maxSize;
 
+        // Determine Sense Radius Of Offspring
+        float offspringSenseRadius = (mateTraits.senseRadius + senseRadius) / 2;
+        // determine variation
+        float senseRadiusVariation = Random.Range((offspringSenseRadius * -0.2f), (offspringSenseRadius * 0.2f));
+        // apply variation
+        offspringSenseRadius += senseRadiusVariation;
+        // mutations of sense radius
+        int mutateSenseRadius = Random.Range(0, mutationRate);
+        if (mutateSize == 1)
+            // then mutate sense radius
+            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
+        // final check
+        // this makes sure the final traits don't go over set maximum or minimum values
+        if (offspringSize < minSenseRadius)
+            offspringSize = minSenseRadius;
+        if (offspringSize > maxSenseRadius)
+            offspringSize = maxSenseRadius;
+
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
         if (offspringChromosomes[1] == "Y")
@@ -317,6 +338,7 @@ public class PredatorSexualFemale : MonoBehaviour
             offspring = Instantiate(SexualMale, transform.position, Quaternion.identity, parentObjectOfOffspring);
             offspring.GetComponent<PredatorSexualMale>().size = offspringSize;
             offspring.GetComponent<PredatorSexualMale>().speed = offspringSpeed;
+            offspring.GetComponent<PredatorSexualMale>().senseRadius = offspringSenseRadius;
         }
         else if (offspringChromosomes[1] == "X")
         {
@@ -324,6 +346,7 @@ public class PredatorSexualFemale : MonoBehaviour
             offspring = Instantiate(SexualFemale, transform.position, Quaternion.identity, parentObjectOfOffspring);
             offspring.GetComponent<PredatorSexualFemale>().size = offspringSize;
             offspring.GetComponent<PredatorSexualFemale>().speed = offspringSpeed;
+            offspring.GetComponent<PredatorSexualFemale>().senseRadius = offspringSenseRadius;
         }
         energy -= energyForRep;
         currentState = "Wander";

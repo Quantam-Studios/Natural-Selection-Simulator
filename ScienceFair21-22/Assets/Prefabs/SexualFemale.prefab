@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   size: 1
+  senseRadius: 1.5
   chromosomes: []
   minEnergyForRep: 5000
   minEnergyToBeHungry: 4000
@@ -117,7 +118,6 @@ MonoBehaviour:
   minX: -40
   minY: -20
   currentState: 
-  senseRadius: 1.5
   notSafe: 0
   predators:
     serializedVersion: 2
@@ -138,6 +138,8 @@ MonoBehaviour:
   maxSize: 1.5
   minSpeed: 1
   maxSpeed: 8
+  minSenseRadius: 0.1
+  maxSenseRadius: 3
 --- !u!50 &3640034823068492546
 Rigidbody2D:
   serializedVersion: 4

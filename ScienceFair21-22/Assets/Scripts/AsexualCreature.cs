@@ -8,6 +8,7 @@ public class AsexualCreature : MonoBehaviour
     [Header("Trait Values")]
     public float speed;
     public float size;
+    public float senseRadius;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -44,7 +45,6 @@ public class AsexualCreature : MonoBehaviour
 
     // SENSORY
     [Header("Senesory Variables")]
-    public float senseRadius;
     // check for predators
     public bool notSafe;
     public LayerMask predators;
@@ -55,14 +55,19 @@ public class AsexualCreature : MonoBehaviour
     private Vector2 foodObjectPos;
 
     // REPRODUCTION
+    [Header("Reproduction")]
     public GameObject asexualCreature;
     private Transform parentObjectOfOffspring;
     // Mutations
+    [Header("Mutations")]
     public int mutationRate;
     public float minSize;
     public float maxSize;
     public float minSpeed;
     public float maxSpeed;
+    public float minSenseRadius;
+    public float maxSenseRadius;
+
 
     // Start is called before the first frame update
     void Start()
@@ -233,13 +238,7 @@ public class AsexualCreature : MonoBehaviour
         int mutateSpeed = Random.Range(0, mutationRate);
         if (mutateSpeed == 1)
             // then mutate speed
-            offspringSpeed = Random.Range(1f, 8f);
-        // final check
-        // this makes sure the final traits don't go over set maximum or minimum values
-        if (offspringSpeed < minSpeed)
-            offspringSpeed = minSpeed;
-        if (offspringSpeed > maxSpeed)
-            offspringSpeed = maxSpeed;
+            offspringSpeed = Random.Range(minSpeed, maxSpeed);
 
         // SIZE DETERMINATION
         float offspringSize = size;
@@ -247,18 +246,21 @@ public class AsexualCreature : MonoBehaviour
         int mutateSize = Random.Range(0, mutationRate);
         if (mutateSize == 1)
             // then mutate size
-            offspringSize = Random.Range(0.1f, 1.5f);
-        // final check
-        // this makes sure the final traits don't go over set maximum or minimum values
-        if (offspringSize < minSize)
-            offspringSize = minSize;
-        if (offspringSize > maxSize)
-            offspringSize = maxSize;
+            offspringSize = Random.Range(minSize, maxSize);
+
+        // SENSORY DETERMINATION
+        float offspringSenseRadius = senseRadius;
+        // mutations of sense radius
+        int mutateSenseRadius = Random.Range(0, mutationRate);
+        if (mutateSenseRadius == 1)
+            // then mutate sense radius
+            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
 
         // Create Offspring
         GameObject offspring = Instantiate(asexualCreature, transform.position, Quaternion.identity, parentObjectOfOffspring);
         offspring.GetComponent<AsexualCreature>().size = offspringSize;
         offspring.GetComponent<AsexualCreature>().speed = offspringSpeed;
+        offspring.GetComponent<AsexualCreature>().senseRadius = offspringSenseRadius;
         offspring.GetComponent<AsexualCreature>().energy = 2500;
 
         // Reset this creatures state, and take away energy

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   size: 1
+  senseRadius: 1.5
   minEnergyForRep: 8000
   minEnergyToBeHungry: 4000
   energyInFood: 1500
@@ -116,7 +117,6 @@ MonoBehaviour:
   minX: -40
   minY: 20
   currentState: 
-  senseRadius: 1.5
   notSafe: 0
   predators:
     serializedVersion: 2
@@ -131,11 +131,13 @@ MonoBehaviour:
     m_Bits: 32768
   Hermaphrodite: {fileID: 5314585045726011185}
   setTimeBtwRep: 5
-  mutationRate: 0
-  minSize: 0
-  maxSize: 0
-  minSpeed: 0
-  maxSpeed: 0
+  mutationRate: 10
+  minSize: 0.1
+  maxSize: 1.5
+  minSpeed: 1
+  maxSpeed: 8
+  minSenseRadius: 0.1
+  maxSenseRadius: 3
 --- !u!50 &5314585045726011189
 Rigidbody2D:
   serializedVersion: 4

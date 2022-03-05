@@ -171,3 +171,5 @@ MonoBehaviour:
   maxSize: 2
   minSpeed: 1
   maxSpeed: 10
+  minSenseRadius: 0.2
+  maxSenseRadius: 1.8

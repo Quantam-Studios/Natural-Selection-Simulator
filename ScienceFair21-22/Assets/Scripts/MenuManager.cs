@@ -1,22 +1,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     // MENUS
     // Statistics
     public GameObject statisticsMenu;
+    // Main Menu
     public GameObject mainMenu;
+    // Setup Menu
     public GameObject setupMenu;
+    // Pause Menu
+    public GameObject pauseMenu;
+
+    // PAUSING
+    public bool paused;
+    public bool simStarted;
 
     // CREATURE TYPE
     // For interactivity between other scripts
-    public static bool[] activeCreature = new bool[3];
+    public static bool[] activeCreatures = new bool[3];
+    public int activeCreatureIndex;
 
     // CREATURE SPAWNING
     public GameObject[] creatures;
     public static int initalCreatureCount;
+    public CreatureSpawning creatureSpawning;
 
     // PREDATOR TYPE
     // For interactivity between other scripts
@@ -43,10 +54,48 @@ public class MenuManager : MonoBehaviour
         statisticsMenu.SetActive(false);
         mainMenu.SetActive(true);
         setupMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         // set food manager inactive
         foodManager.SetActive(false);
         // make sure nothing is simulated 
         Time.timeScale = 0;
+        // initialize pausing, and simulation state management bools
+        paused = false;
+        simStarted = false;
+    }
+
+    private void Update()
+    {
+        // PAUSE
+        // if "space" key is pressed, the simulation is not paused, and the simulation has started then pause the simulation
+        if (Input.GetKeyDown(KeyCode.Space) && !paused && simStarted)
+        {
+            // set true to make this statement can only run when not paused
+            paused = true;
+            // stop time
+            Time.timeScale = 0;
+            // show the pause menu
+            pauseMenu.SetActive(true);
+        }
+    }
+
+    // THE FOLLOWING FUNCTIONS ARE CALLED WHEN BUTTONS ON THE "Pause Menu" ARE PRESSED
+
+    // END SIMULATION
+    public void EndSimulation()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    // RESUME SIMULATION
+    public void ResumeSimulation()
+    {
+        // stop showing the pause menu
+        pauseMenu.SetActive(false);
+        // set false to allow pausing to happen again
+        paused = false;
+        // start time
+        Time.timeScale = 1;
     }
 
     // THE FOLLOWING FUNCTIONS ARE CALLED WHEN THE BUTTON "Run Simulation Button" IS PRESSED
@@ -60,6 +109,7 @@ public class MenuManager : MonoBehaviour
         // set food spawner active
         foodManager.SetActive(true);
         // begin simulating
+        simStarted = true;
         Time.timeScale = 1;
     }
 
@@ -68,10 +118,11 @@ public class MenuManager : MonoBehaviour
     {
         // set creature type active
         creatures[creatureType.value].SetActive(true);
+        activeCreatureIndex = creatureType.value;
         statisticsMenu.SetActive(true);
         // set creature statistics active
         creatureStats[creatureType.value].SetActive(true);
-        activeCreature[creatureType.value] = true;
+        activeCreatures[creatureType.value] = true;
     }
 
     // SET PREDATOR
@@ -109,5 +160,14 @@ public class MenuManager : MonoBehaviour
             initalCreatureCount = Convert.ToInt16(initialAmount.text, System.Globalization.CultureInfo.InvariantCulture);
         else // default to four creatures
             initalCreatureCount = 4;
+        // start spawning
+        SpawnInitialCreatures();       
+    }
+
+    // START SPAWNING 
+    void SpawnInitialCreatures()
+    {
+        // start spawning of inital creatures
+        creatureSpawning.spawnInitialCreatures(initalCreatureCount, activeCreatureIndex);
     }
 }

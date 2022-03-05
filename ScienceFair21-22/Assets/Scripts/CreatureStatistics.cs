@@ -48,11 +48,11 @@ public class CreatureStatistics : MonoBehaviour
     void Update()
     {
         // Update relevant statistics
-        if (MenuManager.activeCreature[0])
+        if (MenuManager.activeCreatures[0])
             SexualCreatureTextUpdate();
-        if (MenuManager.activeCreature[1])
+        if (MenuManager.activeCreatures[1])
             AsexualCreatureTextUpdate();
-        if (MenuManager.activeCreature[2])
+        if (MenuManager.activeCreatures[2])
             HermaphroditeCreatureTextUpdate();
     }
 

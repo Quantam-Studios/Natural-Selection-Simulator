@@ -104,6 +104,8 @@ MonoBehaviour:
   minEnergyToBeHungry: 4000
   energyInFood: 1000
   energyForRep: 5000
+  setRestTime: 3
+  rest: 0
   energy: 2500
   readyForRep: 0
   move: 0
@@ -127,8 +129,8 @@ MonoBehaviour:
   maxSize: 2
   minSpeed: 1
   maxSpeed: 10
-  minSenseRadius: 0.2
-  maxSenseRadius: 1.8
+  minSenseRadius: 0.1
+  maxSenseRadius: 4
 --- !u!50 &9035383430721153044
 Rigidbody2D:
   serializedVersion: 4

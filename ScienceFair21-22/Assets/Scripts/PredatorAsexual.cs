@@ -16,10 +16,16 @@ public class PredatorAsexual : MonoBehaviour
     public float energyInFood;
     public float energyForRep;
 
+    // CATCHING PREY
+    [Header("Catching Prey")]
+    public float setRestTime;
+    public bool rest;
+
     // RUN TIME EFFECTED VARIABLES
     [Header("Simulated Variables")]
     public float energy;
     public bool readyForRep;
+    private float restTime;
     // MOVEMENT 
     public bool move;
     private Vector2 targetPos;
@@ -81,6 +87,10 @@ public class PredatorAsexual : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
+        // Set restTime
+        restTime = setRestTime;
+        // Set rest
+        rest = false;
         // Update statistics
 
         // Set parentObjectOfOffspring to the object holding all PREDATOR creatures
@@ -125,8 +135,8 @@ public class PredatorAsexual : MonoBehaviour
         }
 
         // MOVING / ENERGY CONSUMPTION
-        // When move is true, Move towards the targetPos 
-        if (move == true)
+        // When move is true AND rest is false, Move towards the targetPos 
+        if (move == true && rest == false)
         {
             // Move to targetPos
             transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
@@ -173,6 +183,20 @@ public class PredatorAsexual : MonoBehaviour
             // Update statistics
 
             Destroy(gameObject);
+        }
+
+        // FORCED REST 
+        // this only happens when this predator fails to catch prey (food)
+        if (rest == true)
+        {
+            // start countdown of rest 
+            restTime -= Time.deltaTime;
+            if (restTime <= 0)
+            {
+                rest = false;
+                // reset rest time
+                restTime = setRestTime;
+            }
         }
     }
 
@@ -262,10 +286,22 @@ public class PredatorAsexual : MonoBehaviour
             // this ensures predators only wat food that is smaller than them
             if (size >= col.gameObject.transform.localScale.x)
             {
-                // Add energy
-                energy += energyInFood;
-                // destroy the food
-                Destroy(col.gameObject);
+                // catch prey or not
+                float sizeDifference = (size -= col.gameObject.transform.localScale.x);
+                float chanceToCatch = Random.Range(0f, sizeDifference);
+
+                // if chanceToCatch is greater than 50% of sizeDifference then eat food
+                if (chanceToCatch > sizeDifference / 2)
+                {
+                    // Add energy
+                    energy += energyInFood;
+                    // destroy the food
+                    Destroy(col.gameObject);
+                }
+                else // Forced Rest
+                {
+                    rest = true;
+                }
             }
         }
 

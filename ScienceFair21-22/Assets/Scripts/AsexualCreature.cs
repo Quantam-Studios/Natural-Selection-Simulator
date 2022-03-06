@@ -44,7 +44,7 @@ public class AsexualCreature : MonoBehaviour
     public string currentState;
 
     // SENSORY
-    [Header("Senesory Variables")]
+    [Header("Sensory Variables")]
     // check for predators
     public bool notSafe;
     public LayerMask predators;

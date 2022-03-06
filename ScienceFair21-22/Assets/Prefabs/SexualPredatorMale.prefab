@@ -137,11 +137,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   size: 1
+  senseRadius: 4
   chromosomes: []
   minEnergyForRep: 10000
   minEnergyToBeHungry: 9999
   energyInFood: 5000
   energyToRep: 5000
+  setRestTime: 3
+  rest: 0
   energy: 20000
   readyForRep: 0
   move: 0
@@ -154,7 +157,6 @@ MonoBehaviour:
   minX: -40
   minY: -20
   currentState: 
-  senseRadius: 4
   foodClose: 0
   food:
     serializedVersion: 2

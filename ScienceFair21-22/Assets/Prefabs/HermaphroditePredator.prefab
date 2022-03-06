@@ -100,9 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   size: 1
-  minEnergyForRep: 10000
-  minEnergyToBeHungry: 9999
-  energyInFood: 4000
+  minEnergyForRep: 20000
+  minEnergyToBeHungry: 8000
+  energyInFood: 2500
   energyForRep: 10000
   setRestTime: 3
   rest: 0

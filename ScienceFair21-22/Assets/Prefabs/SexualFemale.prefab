@@ -102,9 +102,9 @@ MonoBehaviour:
   size: 1
   senseRadius: 1.5
   chromosomes: []
-  minEnergyForRep: 5000
-  minEnergyToBeHungry: 4000
-  energyInFood: 3000
+  minEnergyForRep: 10000
+  minEnergyToBeHungry: 5000
+  energyInFood: 2500
   energyForRep: 5000
   energy: 20000
   readyForRep: 0

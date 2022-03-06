@@ -153,7 +153,7 @@ public class PredatorSexualMale : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
             // This deals with the constant loss of energy from moving
             // size is now factored in because size effects how much energy is needed to move
-            energy -= speed / (1f + size);
+            energy -= speed / (1f + size) * Time.timeScale;
         }
         else
         {
@@ -230,8 +230,22 @@ public class PredatorSexualMale : MonoBehaviour
             {
                 if (foodClose == true)
                 {
-                    foodObjectPos = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0).transform.position;
-                    currentState = "GetFood";
+                    if (foodClose == true)
+                    {
+                        GameObject potentialPrey = Physics2D.OverlapCircle(transform.position, senseRadius, food, 0).gameObject;
+                        // check size of predator compared to food size
+                        // this ensures predators only eat food that is smaller than them
+                        // if the sensed prey is smaller then or the same size as the predator (itself) then chase the prey
+                        if (potentialPrey.transform.localScale.x <= size)
+                        {
+                            foodObjectPos = potentialPrey.transform.position;
+                            currentState = "GetFood";
+                        }
+                        else // if not then wander
+                        {
+                            currentState = "Wander";
+                        }
+                    }
                 }
                 else
                 {

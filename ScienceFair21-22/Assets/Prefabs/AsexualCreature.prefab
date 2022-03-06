@@ -101,9 +101,9 @@ MonoBehaviour:
   speed: 5
   size: 0.5
   senseRadius: 1.5
-  minEnergyForRep: 8000
-  minEnergyToBeHungry: 4000
-  energyInFood: 1000
+  minEnergyForRep: 10000
+  minEnergyToBeHungry: 5000
+  energyInFood: 2500
   energyToRep: 5000
   energy: 2500
   readyForRep: 0

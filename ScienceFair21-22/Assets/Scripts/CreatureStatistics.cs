@@ -40,8 +40,19 @@ public class CreatureStatistics : MonoBehaviour
 
     private void Start()
     {
-        // Make the game run as fast as possible
+        // Make the simlation run as fast as possible
         Application.targetFrameRate = 60;
+        // Reset all time stats
+        allTimeAsexualCreatureCount = 0;
+        allTimeFemaleCreatureCount = 0;
+        allTimeMaleCreatureCount = 0;
+        allTimeHermaphroditeCreatureCount = 0;
+        // Reset current stats
+        asexualCreatureCount = 0;
+        sexualCreatureCount = 0;
+        maleSexualCreatureCount = 0;
+        femaleSexualCreatureCount = 0;
+        hermaphroditeCreatureCount = 0;
     }
 
     // Update is called once per frame

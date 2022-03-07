@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  size: 0.5
+  size: 1
   senseRadius: 1.5
   minEnergyForRep: 10000
   minEnergyToBeHungry: 5000

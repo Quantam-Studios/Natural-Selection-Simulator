@@ -143,12 +143,8 @@ public class MenuManager : MonoBehaviour
     // SET TIME LIMIT
     public void SetTimeLimit(Dropdown timeLimit)
     {
-        // check if timeLimit value is not 8 (none) 
-        if (timeLimit.value != 8)
-        {
-            // set time limit
-            timer.activeTimeLimitIndex = timeLimit.value;
-        }
+        // set time limit
+        timer.activeTimeLimitIndex = timeLimit.value;
     }
 
     // SET INITIAL FOOD COUNT
@@ -165,6 +161,8 @@ public class MenuManager : MonoBehaviour
         // set the food spawn rate to value of spawnRate if the text is not effectively null
         if (spawnRate.text != "")
             foodSpawnRate = float.Parse(spawnRate.text, System.Globalization.CultureInfo.InvariantCulture);
+        else // if not set then defualt to 1 second
+            foodSpawnRate = 1;
     }
 
     // SET START AMOUNT OF CREATURES

@@ -19,6 +19,9 @@ public class MenuManager : MonoBehaviour
     public bool paused;
     public bool simStarted;
 
+    // TIME LIMIT
+    public Timer timer;
+
     // CREATURE TYPE
     // For interactivity between other scripts
     public static bool[] activeCreatures = new bool[3];
@@ -134,6 +137,17 @@ public class MenuManager : MonoBehaviour
             // set predator type active
             predators[predatorType.value].SetActive(true);
             activePredator[predatorType.value] = true;
+        }
+    }
+
+    // SET TIME LIMIT
+    public void SetTimeLimit(Dropdown timeLimit)
+    {
+        // check if timeLimit value is not 8 (none) 
+        if (timeLimit.value != 8)
+        {
+            // set time limit
+            timer.activeTimeLimitIndex = timeLimit.value;
         }
     }
 

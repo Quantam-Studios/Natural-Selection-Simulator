@@ -50,6 +50,9 @@ public class MenuManager : MonoBehaviour
     // Food Spawn Rate
     public static float foodSpawnRate;
 
+    // NEW LOG SECTIONS
+    public CreatureStatistics creatureStatistics;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -114,6 +117,8 @@ public class MenuManager : MonoBehaviour
         // begin simulating
         simStarted = true;
         Time.timeScale = 1;
+        // begin logging
+        creatureStatistics.newLogSection();
     }
 
     // SET CREATURE

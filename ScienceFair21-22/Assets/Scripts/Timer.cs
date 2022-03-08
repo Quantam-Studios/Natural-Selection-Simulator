@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
     // TEXT OBJECTS FOR DISPLAYING TIME
     [Header("General")]
     public Text timerText;
-    public float time = 0;
+    public static float time = 0;
 
     // VALUES OF TIME FOR THE TIME LIMIT
     [Header("Time Limit")]

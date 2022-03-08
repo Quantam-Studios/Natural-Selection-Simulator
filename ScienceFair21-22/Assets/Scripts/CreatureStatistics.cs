@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class CreatureStatistics : MonoBehaviour
 {
@@ -38,6 +39,21 @@ public class CreatureStatistics : MonoBehaviour
     public Text hermaphroditeCreatureCountText;
     public Text allTimeHermaphroditeCreatureCountText;
 
+    // COLLECTING DATA
+    [Header("Collecting Data")]
+    public float setRecordInterval;
+    // run time effected countdown
+    private float recordInterval;
+    // reference to the SaveData script allowing for writing to logs
+    public SaveData saveData;
+    // reference to the Timer script allowing for access to it's values
+    public Timer timer;
+
+    [Header("Formatting Data")]
+    // this stuff   
+    public string[] activeCreatureName;
+    public string[] activePredatorName;
+   
     private void Start()
     {
         // Make the simlation run as fast as possible
@@ -55,6 +71,19 @@ public class CreatureStatistics : MonoBehaviour
         hermaphroditeCreatureCount = 0;
     }
 
+    // INITIALIZE / FORMAT NEW SET OF DATA
+    // only called in the RunSimulation() function of MenuManager
+    public void newLogSection()
+    {
+        // Create a description of the circumstances on the log
+        saveData.CreateText("\n\n New Data Set \n" + activeCreatureName[1] + " creatures with " + activePredatorName[3] + " predators\n");
+        // Determine and format time limit into a string
+        TimeSpan timeSpan = TimeSpan.FromSeconds(0 + timer.timeLimits[timer.activeTimeLimitIndex]);
+        string timeLimit = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+        // Add all presets, and inital values to the log
+        saveData.CreateText("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initalCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -65,6 +94,16 @@ public class CreatureStatistics : MonoBehaviour
             AsexualCreatureTextUpdate();
         if (MenuManager.activeCreatures[2])
             HermaphroditeCreatureTextUpdate();
+
+        // TEST 
+        // DATA COLLECTION
+        // Asexual creatures (prey)
+        recordInterval -= Time.deltaTime;
+        if (recordInterval <= 0)
+        {
+            recordInterval = setRecordInterval;
+            saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " AllTimeCreatures: " + allTimeAsexualCreatureCount.ToString());
+        }
     }
 
     // Update sexual statistics text

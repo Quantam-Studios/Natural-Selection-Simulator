@@ -4456,6 +4456,7 @@ GameObject:
   - component: {fileID: 727430561}
   - component: {fileID: 727430560}
   - component: {fileID: 727430563}
+  - component: {fileID: 727430564}
   m_Layer: 5
   m_Name: STATISTICS
   m_TagString: Untagged
@@ -4508,6 +4509,19 @@ MonoBehaviour:
   allTimeAsexualCreatureCountText: {fileID: 897527886}
   hermaphroditeCreatureCountText: {fileID: 1477962961}
   allTimeHermaphroditeCreatureCountText: {fileID: 1769638884}
+  setRecordInterval: 2
+  totalLength: 10
+  saveData: {fileID: 727430564}
+  timer: {fileID: 727430563}
+  activeCreatureName:
+  - Sexual
+  - Asexual
+  - Hermaphrodite
+  activePredatorName:
+  - Sexual
+  - Asexual
+  - Hermaphrodite
+  - no
 --- !u!114 &727430561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4559,7 +4573,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 964174088}
-  time: 0
   timeLimits:
   - 60
   - 120
@@ -4572,6 +4585,18 @@ MonoBehaviour:
   - 0
   activeTimeLimitIndex: 0
   menuManager: {fileID: 1877270742}
+--- !u!114 &727430564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727430558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a27d8369bd0a441bdd678d33bf48db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &739338659
 GameObject:
   m_ObjectHideFlags: 0
@@ -7241,11 +7266,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1877270742}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: RunSimulation
-        m_Mode: 1
+        m_MethodName: SetTimeLimit
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1658868629}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7277,11 +7302,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1877270742}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: SetTimeLimit
-        m_Mode: 2
+        m_MethodName: RunSimulation
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1658868629}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10870,6 +10895,7 @@ MonoBehaviour:
   - {fileID: 397671828}
   - {fileID: 781873855}
   foodManager: {fileID: 119090443}
+  creatureStatistics: {fileID: 727430560}
 --- !u!1001 &1901606214
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,6 +16,12 @@ public class Timer : MonoBehaviour
     // reference to menu manager for resetting
     public MenuManager menuManager;
 
+    private void Start()
+    {
+        // INITIALIZE VALUES
+        time = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {

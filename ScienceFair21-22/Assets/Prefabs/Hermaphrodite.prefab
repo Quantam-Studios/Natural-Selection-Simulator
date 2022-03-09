@@ -115,7 +115,7 @@ MonoBehaviour:
   maxX: 40
   maxY: 20
   minX: -40
-  minY: 20
+  minY: -20
   currentState: 
   notSafe: 0
   predators:

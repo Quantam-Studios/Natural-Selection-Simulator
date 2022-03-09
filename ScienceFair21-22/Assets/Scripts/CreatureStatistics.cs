@@ -60,6 +60,7 @@ public class CreatureStatistics : MonoBehaviour
         Application.targetFrameRate = 60;
         // Reset all time stats
         allTimeAsexualCreatureCount = 0;
+        allTimeSexualCreatureCount = 0;
         allTimeFemaleCreatureCount = 0;
         allTimeMaleCreatureCount = 0;
         allTimeHermaphroditeCreatureCount = 0;
@@ -73,10 +74,12 @@ public class CreatureStatistics : MonoBehaviour
 
     // INITIALIZE / FORMAT NEW SET OF DATA
     // only called in the RunSimulation() function of MenuManager
-    public void newLogSection()
+    public void initializeNewLog()
     {
+        // Set recordingInterval 
+        setRecordInterval = MenuManager.setDataRecordingInterval;
         // Create a description of the circumstances on the log
-        saveData.CreateText("\n\n New Data Set \n" + activeCreatureName[1] + " creatures with " + activePredatorName[3] + " predators\n");
+        saveData.CreateText("\n\n New Data Set \n" + activeCreatureName[MenuManager.activeCreatureIndex] + " creatures with " + activePredatorName[MenuManager.activePredatorIndex] + " predators\n");
         // Determine and format time limit into a string
         TimeSpan timeSpan = TimeSpan.FromSeconds(0 + timer.timeLimits[timer.activeTimeLimitIndex]);
         string timeLimit = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
@@ -95,15 +98,38 @@ public class CreatureStatistics : MonoBehaviour
         if (MenuManager.activeCreatures[2])
             HermaphroditeCreatureTextUpdate();
 
-        // TEST 
         // DATA COLLECTION
         // Asexual creatures (prey)
         recordInterval -= Time.deltaTime;
         if (recordInterval <= 0)
         {
+            // restart countdown
             recordInterval = setRecordInterval;
-            saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " AllTimeCreatures: " + allTimeAsexualCreatureCount.ToString());
+            // log relevant statistics
+            if (MenuManager.activeCreatures[0])
+                LogSexual();
+            if (MenuManager.activeCreatures[1])
+                LogAsexual();
+            if (MenuManager.activeCreatures[2])
+                LogHermaphrodite();
         }
+    }
+
+    // LOGGING FUNCTIONS
+    // Asexual
+    void LogAsexual()
+    {
+        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " AllTimeCreatures: " + allTimeAsexualCreatureCount.ToString());
+    }
+    // Sexual
+    void LogSexual()
+    {
+        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " AllTimeCreatures: " + allTimeSexualCreatureCount.ToString());
+    }
+    // Hermaphrodite
+    void LogHermaphrodite()
+    {
+        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " AllTimeCreatures: " + allTimeHermaphroditeCreatureCount.ToString());
     }
 
     // Update sexual statistics text

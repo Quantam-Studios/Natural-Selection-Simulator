@@ -25,7 +25,7 @@ public class MenuManager : MonoBehaviour
     // CREATURE TYPE
     // For interactivity between other scripts
     public static bool[] activeCreatures = new bool[3];
-    public int activeCreatureIndex;
+    public static int activeCreatureIndex;
 
     // CREATURE SPAWNING
     public GameObject[] creatures;
@@ -35,6 +35,7 @@ public class MenuManager : MonoBehaviour
     // PREDATOR TYPE
     // For interactivity between other scripts
     public static bool[] activePredator = new bool[4];
+    public static int activePredatorIndex;
 
     // PREDATOR SPAWNING
     public GameObject[] predators;
@@ -50,8 +51,12 @@ public class MenuManager : MonoBehaviour
     // Food Spawn Rate
     public static float foodSpawnRate;
 
-    // NEW LOG SECTIONS
+    // DATA COLLECTION / LOGGING
+    // New log sections
     public CreatureStatistics creatureStatistics;
+    // general logging
+    public static float setDataRecordingInterval;
+
 
     // Start is called before the first frame update
     void Start()
@@ -118,7 +123,7 @@ public class MenuManager : MonoBehaviour
         simStarted = true;
         Time.timeScale = 1;
         // begin logging
-        creatureStatistics.newLogSection();
+        creatureStatistics.initializeNewLog();
     }
 
     // SET CREATURE
@@ -143,6 +148,8 @@ public class MenuManager : MonoBehaviour
             predators[predatorType.value].SetActive(true);
             activePredator[predatorType.value] = true;
         }
+        // set activePredatorIndex for other scripts to act upon
+        activePredatorIndex = predatorType.value;
     }
 
     // SET TIME LIMIT
@@ -168,6 +175,15 @@ public class MenuManager : MonoBehaviour
             foodSpawnRate = float.Parse(spawnRate.text, System.Globalization.CultureInfo.InvariantCulture);
         else // if not set then defualt to 1 second
             foodSpawnRate = 1;
+    }
+
+    // SET DATA COLLECTION INTERVAL
+    public void SetDataCollectionRate(InputField collectionRate)
+    {
+        if (collectionRate.text != "")
+            setDataRecordingInterval = float.Parse(collectionRate.text, System.Globalization.CultureInfo.InvariantCulture);
+        else // the value was not set so defualt to 2 seconds
+            setDataRecordingInterval = 2f;           
     }
 
     // SET START AMOUNT OF CREATURES

@@ -99,9 +99,17 @@ public class AsexualCreature : MonoBehaviour
         // Get Divisions
         // size
         sizeDiv = creatureStatistics.getSizeDivision(size);
+        // speed
+        speedDiv = creatureStatistics.getSpeedDivision(speed);
+        // sense radius
+        senseRadiusDiv = creatureStatistics.getSenseRadiusDivision(senseRadius);
         // Update Trait Stats
         // size
         CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] += 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] += 1;
 
         // Set parentObjectOfOffspring to the object holding all ASEXUAL creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("AsexualCreatureHolder").transform;
@@ -321,6 +329,10 @@ public class AsexualCreature : MonoBehaviour
         CreatureStatistics.asexualCreatureCount -= 1;
         // Update Trait Stats
         // size
-        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] -= 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] -= 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] -= 1;
     }
 }

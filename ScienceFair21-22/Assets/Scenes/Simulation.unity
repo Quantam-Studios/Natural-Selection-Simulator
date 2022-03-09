@@ -4856,6 +4856,18 @@ MonoBehaviour:
   - 0.75
   - 1
   - 1.25
+  speedDivisions:
+  - 1.33
+  - 2.66
+  - 3.99
+  - 5.32
+  - 6.65
+  senseRadiusDivisions:
+  - 1.66
+  - 3.32
+  - 4.98
+  - 6.64
+  - 8.3
   sexualCreatureCountText: {fileID: 1458627624}
   maleSexualCreatureCountText: {fileID: 1829154829}
   femaleSexualCreatureCountText: {fileID: 1152417567}

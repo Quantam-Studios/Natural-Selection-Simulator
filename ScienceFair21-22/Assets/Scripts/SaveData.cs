@@ -4,14 +4,30 @@ using System.IO;
 
 public class SaveData : MonoBehaviour
 {
-    public void CreateText(string content)
+    // Population tracking
+    public void CreatePopulationsLog(string content)
     {
         // path of the file
-        string path = Application.dataPath + "/Log.txt";
+        string path = Application.dataPath + "/PopulationsLog.txt";
         // create file if it doesnt exist
         if (!File.Exists(path))
         {
-            File.WriteAllText(path, "Data Logs:\n");
+            File.WriteAllText(path, "Population Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
+
+
+    // Trait tracking
+    public void CreateTraitsLog(string content)
+    {
+        // path of the file
+        string path = Application.dataPath + "/TraitsLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Trait Logs:\n");
         }
         // add the content
         File.AppendAllText(path, content + "\n");

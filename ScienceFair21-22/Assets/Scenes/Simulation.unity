@@ -4807,7 +4807,7 @@ GameObject:
   - component: {fileID: 727430565}
   m_Layer: 5
   m_Name: STATISTICS
-  m_TagString: Untagged
+  m_TagString: StatisticHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4850,6 +4850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db772265d602154d82591accbd34882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sizeDivisions:
+  - 0.25
+  - 0.5
+  - 0.75
+  - 1
+  - 1.25
   sexualCreatureCountText: {fileID: 1458627624}
   maleSexualCreatureCountText: {fileID: 1829154829}
   femaleSexualCreatureCountText: {fileID: 1152417567}

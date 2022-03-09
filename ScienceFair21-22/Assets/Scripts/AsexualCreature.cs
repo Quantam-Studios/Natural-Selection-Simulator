@@ -7,6 +7,12 @@ public class AsexualCreature : MonoBehaviour
     public float speed;
     public float size;
     public float senseRadius;
+    // tracking of traits
+    private CreatureStatistics creatureStatistics;
+    // trait divisions
+    public int speedDiv;
+    public int sizeDiv;
+    public int senseRadiusDiv;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -82,9 +88,21 @@ public class AsexualCreature : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
+        // Get statistics reference
+        creatureStatistics = FindObjectOfType<CreatureStatistics>();
+
         // Update statistics
+        // POPULATIONS ones
         CreatureStatistics.allTimeAsexualCreatureCount += 1;
         CreatureStatistics.asexualCreatureCount += 1;
+        // TRAIT ones
+        // Get Divisions
+        // size
+        sizeDiv = creatureStatistics.getSizeDivision(size);
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+
         // Set parentObjectOfOffspring to the object holding all ASEXUAL creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("AsexualCreatureHolder").transform;
     }
@@ -299,6 +317,10 @@ public class AsexualCreature : MonoBehaviour
     private void OnDestroy()
     {
         // Update Statistics
+        // Population
         CreatureStatistics.asexualCreatureCount -= 1;
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
     }
 }

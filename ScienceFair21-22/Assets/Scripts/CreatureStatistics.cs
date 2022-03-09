@@ -5,6 +5,7 @@ using System;
 public class CreatureStatistics : MonoBehaviour
 {
     // STATIC VARIABLES FOR TRACKING
+    // POPULATIONS
     // Seuxal Creature Counts
     public static int femaleSexualCreatureCount;
     public static int maleSexualCreatureCount;
@@ -18,6 +19,11 @@ public class CreatureStatistics : MonoBehaviour
     // Hermaphrodite Creature Counts
     public static int hermaphroditeCreatureCount;
     public static int allTimeHermaphroditeCreatureCount;
+    // TRAITS
+    [Header("Trait Tracking")]
+    // Size
+    public float[] sizeDivisions;
+    public static int[] sizeDivisionTracker;
 
     // TEXT OBJECTS FOR DISPLAYING STATISTICS
     // Sexual
@@ -69,6 +75,10 @@ public class CreatureStatistics : MonoBehaviour
         maleSexualCreatureCount = 0;
         femaleSexualCreatureCount = 0;
         hermaphroditeCreatureCount = 0;
+
+        // Initialize trait division tracker arrays
+        // Size
+        sizeDivisionTracker = new int[5];
     }
 
     // INITIALIZE / FORMAT NEW SET OF DATA
@@ -79,12 +89,12 @@ public class CreatureStatistics : MonoBehaviour
         // Set recordingInterval 
         setRecordInterval = MenuManager.setDataRecordingInterval;
         // Create a description of the circumstances on the log
-        saveData.CreateText("\n\n New Data Set \n" + activeCreatureName[MenuManager.activeCreatureIndex] + " creatures with " + activePredatorName[MenuManager.activePredatorIndex] + " predators\n");
+        saveData.CreatePopulationsLog("\n\n New Data Set \n" + activeCreatureName[MenuManager.activeCreatureIndex] + " creatures with " + activePredatorName[MenuManager.activePredatorIndex] + " predators\n");
         // Determine and format time limit into a string
         TimeSpan timeSpan = TimeSpan.FromSeconds(0 + timer.timeLimits[timer.activeTimeLimitIndex]);
         string timeLimit = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
         // Add all presets, and inital values to the log
-        saveData.CreateText("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initialCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
+        saveData.CreatePopulationsLog("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initialCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
     }
 
     // Update is called once per frame
@@ -106,32 +116,42 @@ public class CreatureStatistics : MonoBehaviour
         {
             // restart countdown
             recordInterval = setRecordInterval;
-            // log relevant statistics
+            // Log relevant statistics
             if (MenuManager.activeCreatures[0])
                 LogSexual();
             if (MenuManager.activeCreatures[1])
                 LogAsexual();
             if (MenuManager.activeCreatures[2])
                 LogHermaphrodite();
+            // Log trait stats
+            LogSize();
         }
     }
 
     // LOGGING FUNCTIONS
-    // the following functions tell saveData what new content to add to the file "Log.txt"
+    // the following functions tell saveData what new content to add to the file "PopulationsLog.txt"
+    // POPULATION STATS
     // Asexual
     void LogAsexual()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " All Time Creatures: " + allTimeAsexualCreatureCount.ToString());
+        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " All Time Creatures: " + allTimeAsexualCreatureCount.ToString());
     }
     // Sexual
     void LogSexual()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " All Time Creatures: " + allTimeSexualCreatureCount.ToString());
+        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " All Time Creatures: " + allTimeSexualCreatureCount.ToString());
     }
     // Hermaphrodite
     void LogHermaphrodite()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " All Time Creatures: " + allTimeHermaphroditeCreatureCount.ToString());
+        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " All Time Creatures: " + allTimeHermaphroditeCreatureCount.ToString());
+    }
+    // the following functions tell saveData what new content to add to the file "TraitsLog.txt"
+    // TRAIT STATS
+    // Size
+    void LogSize()
+    {
+        saveData.CreateTraitsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + sizeDivisionTracker[0].ToString() + " Division 2: " + sizeDivisionTracker[1].ToString() + " Division 3: " + sizeDivisionTracker[2].ToString() + " Division 4: " + sizeDivisionTracker[3].ToString() + " Division 5: " + sizeDivisionTracker[4].ToString());
     }
 
     // Update sexual statistics text
@@ -170,5 +190,22 @@ public class CreatureStatistics : MonoBehaviour
         hermaphroditeCreatureCountText.text = "Total Hermpahrodite Creatures: " + hermaphroditeCreatureCount.ToString();
         // Update the all time total hermaphrodite creature count text
         allTimeHermaphroditeCreatureCountText.text = "Total Hermaphrodite Creatures Born: " + allTimeHermaphroditeCreatureCount.ToString();
+    }
+
+    // DETERMINE DIVISION OF TRAITS
+    // Size
+    public int getSizeDivision(float size)
+    {
+        int division = 0;
+        // compare size to divisions
+        for (int i = 0; i < sizeDivisions.Length; i++)
+        {
+            // check if the size is smaller than or equal to the division
+            if (size >= sizeDivisions[i])
+                division = i;
+            // if not then continue
+        }
+        // return the division for later use in 
+        return division;
     }
 }

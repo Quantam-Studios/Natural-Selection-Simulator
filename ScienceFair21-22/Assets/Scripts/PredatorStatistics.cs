@@ -93,17 +93,17 @@ public class PredatorStatistics : MonoBehaviour
     // Asexual
     void LogAsexual()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorAsexualCount.ToString() + " All Time Predators:  " + allTimePredatorAsexualCount.ToString());
+        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorAsexualCount.ToString() + " All Time Predators:  " + allTimePredatorAsexualCount.ToString());
     }
     // Sexual
     void LogSexual()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorSexualCount.ToString() + " All Time Predators: " + allTimePredatorSexualCount.ToString());
+        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorSexualCount.ToString() + " All Time Predators: " + allTimePredatorSexualCount.ToString());
     }
     // Hermaphrodite
     void LogHermaphrodite()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorHermaphroditeCount.ToString() + " All Time Predators: " + allTimePredatorHermaphroditeCount.ToString());
+        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorHermaphroditeCount.ToString() + " All Time Predators: " + allTimePredatorHermaphroditeCount.ToString());
     }
 
     // Update sexual statistics text

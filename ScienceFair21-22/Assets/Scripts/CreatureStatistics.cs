@@ -84,7 +84,7 @@ public class CreatureStatistics : MonoBehaviour
         TimeSpan timeSpan = TimeSpan.FromSeconds(0 + timer.timeLimits[timer.activeTimeLimitIndex]);
         string timeLimit = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
         // Add all presets, and inital values to the log
-        saveData.CreateText("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initalCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
+        saveData.CreateText("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initialCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
     }
 
     // Update is called once per frame

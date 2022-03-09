@@ -29,7 +29,7 @@ public class MenuManager : MonoBehaviour
 
     // CREATURE SPAWNING
     public GameObject[] creatures;
-    public static int initalCreatureCount;
+    public static int initialCreatureCount;
     public CreatureSpawning creatureSpawning;
 
     // PREDATOR TYPE
@@ -39,6 +39,9 @@ public class MenuManager : MonoBehaviour
 
     // PREDATOR SPAWNING
     public GameObject[] predators;
+    public static int initialPredatorCount;
+    public PredatorSpawning predatorSpawning;
+    
 
     // CREATURE STATISTICS
     public GameObject[] creatureStats;
@@ -195,21 +198,44 @@ public class MenuManager : MonoBehaviour
             setDataRecordingInterval = 2f;           
     }
 
-    // SET START AMOUNT OF CREATURES
+    // SET START AMOUNT OF CREATURES (prey)
     public void SetInitialCreatureCount(InputField initialAmount)
     {
+        // set the inital creature count to value of initialAmount if the text is not effectively null
         if (initialAmount.text != "")
-            initalCreatureCount = Convert.ToInt16(initialAmount.text, System.Globalization.CultureInfo.InvariantCulture);
-        else // default to four creatures
-            initalCreatureCount = 4;
+            initialCreatureCount = Convert.ToInt16(initialAmount.text, System.Globalization.CultureInfo.InvariantCulture);
+        else // default to four creatures (prey)
+            initialCreatureCount = 4;
         // start spawning
         SpawnInitialCreatures();       
     }
 
-    // START SPAWNING 
+    // START SPAWNING OF PREY
     void SpawnInitialCreatures()
     {
         // start spawning of inital creatures
-        creatureSpawning.spawnInitialCreatures(initalCreatureCount, activeCreatureIndex);
+        creatureSpawning.spawnInitialCreatures(initialCreatureCount, activeCreatureIndex);
+    }
+
+    // SET START AMOUNT OF PREDATORS
+    public void SetInitalPredatorCount(InputField initialAmount)
+    {
+        // set the inital predator count to value of initialAmount if the text is not effectively null
+        if (initialAmount.text != "")
+            initialPredatorCount = Convert.ToInt16(initialAmount.text, System.Globalization.CultureInfo.InvariantCulture);
+        else // default to four predators
+            initialPredatorCount = 4;
+        if (activePredatorIndex != 3)
+        {
+            // start spawning
+            SpawnInitalPredators();
+        }
+    }
+
+    // START SPAWNING OF PREDATORS
+    void SpawnInitalPredators()
+    {
+        // start spawning of inital predators
+        predatorSpawning.spawnInitialPredators(initialPredatorCount, activePredatorIndex);
     }
 }

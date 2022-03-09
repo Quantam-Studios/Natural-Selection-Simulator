@@ -35,10 +35,8 @@ public class CreatureSpawning : MonoBehaviour
                 Instantiate(creatures[activeCreature], spawnPos, Quaternion.identity, creatureHolders[activeCreature]);
             else // else if the creature is sexualCreature
             {
-                // choose random sex
-                int randSex = Random.Range(0,2);
-
-                if(randSex == 0) // spawn a female
+                // Ensures a close to even if not perfectly even distribution of females, and males.
+                if (i % 2 != 0) // spawn a female
                     Instantiate(creatures[0], spawnPos, Quaternion.identity, creatureHolders[activeCreature]);
                 else // spawn a male
                     Instantiate(creatures[3], spawnPos, Quaternion.identity, creatureHolders[activeCreature]);

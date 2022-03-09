@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HermaphroditeCreature   : MonoBehaviour
@@ -344,11 +342,14 @@ public class HermaphroditeCreature   : MonoBehaviour
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
         offspring = Instantiate(Hermaphrodite, transform.position, Quaternion.identity, parentObjectOfOffspring);
+        // give the newly detemrined trait values to the offspring
         offspring.GetComponent<HermaphroditeCreature>().size = offspringSize;
         offspring.GetComponent<HermaphroditeCreature>().speed = offspringSpeed;
         offspring.GetComponent<HermaphroditeCreature>().senseRadius = offspringSenseRadius;
 
+        // take away the energy that it takes to reproduce
         energy -= energyForRep;
+        // esure the state doesn't become stuck in GetMate
         currentState = "Wander";
     }
 

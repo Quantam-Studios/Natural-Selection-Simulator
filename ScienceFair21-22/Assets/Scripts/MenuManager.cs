@@ -180,6 +180,7 @@ public class MenuManager : MonoBehaviour
     // SET DATA COLLECTION INTERVAL
     public void SetDataCollectionRate(InputField collectionRate)
     {
+        // set the collection rate to value of collectionRate if the text is not effectively null
         if (collectionRate.text != "")
             setDataRecordingInterval = float.Parse(collectionRate.text, System.Globalization.CultureInfo.InvariantCulture);
         else // the value was not set so defualt to 2 seconds

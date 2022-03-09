@@ -356,11 +356,14 @@ public class PredatorHermaphrodite : MonoBehaviour
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;
         offspring = Instantiate(hermaphrodite, transform.position, Quaternion.identity, parentObjectOfOffspring);
+        // give the newly detemrined trait values to the offspring
         offspring.GetComponent<PredatorHermaphrodite>().size = offspringSize;
         offspring.GetComponent<PredatorHermaphrodite>().speed = offspringSpeed;
         offspring.GetComponent<PredatorHermaphrodite>().senseRadius = offspringSenseRadius;
 
+        // take away the energy that it takes to reproduce
         energy -= energyForRep;
+        // esure the state doesn't become stuck in GetMate
         currentState = "Wander";
     }
 

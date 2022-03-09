@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -23,7 +21,7 @@ public class CreatureStatistics : MonoBehaviour
 
     // TEXT OBJECTS FOR DISPLAYING STATISTICS
     // Sexual
-    [Header("Sexual Stat Text")]
+    [Header("Sexual Prey Stat Text")]
     public Text sexualCreatureCountText;
     public Text maleSexualCreatureCountText;
     public Text femaleSexualCreatureCountText;
@@ -31,11 +29,11 @@ public class CreatureStatistics : MonoBehaviour
     public Text allTimeMaleSexualCreatureCountText;
     public Text allTimeFemaleSexualCreatureCountText;
     // Asexual
-    [Header("Asexual Stat Text")]
+    [Header("Asexual Prey Stat Text")]
     public Text asexualCreatureCountText;
     public Text allTimeAsexualCreatureCountText;
     // Hermaphrodite
-    [Header("Hermaphrodite Stat Text")]
+    [Header("Hermaphrodite Prey Stat Text")]
     public Text hermaphroditeCreatureCountText;
     public Text allTimeHermaphroditeCreatureCountText;
 
@@ -48,16 +46,17 @@ public class CreatureStatistics : MonoBehaviour
     public SaveData saveData;
     // reference to the Timer script allowing for access to it's values
     public Timer timer;
-
     [Header("Formatting Data")]
-    // this stuff   
+    // this stuff is for formatting of data in the file "Log.txt"
     public string[] activeCreatureName;
     public string[] activePredatorName;
    
     private void Start()
     {
-        // Make the simlation run as fast as possible
+        // Make the simlation run at a stable frame rate
         Application.targetFrameRate = 60;
+        // RESET ALL VALUES
+        // this ensures that when the functions used to "reload" the scene static statistic values start at 0
         // Reset all time stats
         allTimeAsexualCreatureCount = 0;
         allTimeSexualCreatureCount = 0;
@@ -74,6 +73,7 @@ public class CreatureStatistics : MonoBehaviour
 
     // INITIALIZE / FORMAT NEW SET OF DATA
     // only called in the RunSimulation() function of MenuManager
+    // this ensures that all values, and settings chosen by the user have been set. 
     public void initializeNewLog()
     {
         // Set recordingInterval 
@@ -90,7 +90,7 @@ public class CreatureStatistics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update relevant statistics
+        // Update relevant statistics of PREY
         if (MenuManager.activeCreatures[0])
             SexualCreatureTextUpdate();
         if (MenuManager.activeCreatures[1])
@@ -99,8 +99,9 @@ public class CreatureStatistics : MonoBehaviour
             HermaphroditeCreatureTextUpdate();
 
         // DATA COLLECTION
-        // Asexual creatures (prey)
+        // countdown from the set recording interval
         recordInterval -= Time.deltaTime;
+        // once the countdown reaches zero record the proper data, and reset the timer
         if (recordInterval <= 0)
         {
             // restart countdown
@@ -116,6 +117,7 @@ public class CreatureStatistics : MonoBehaviour
     }
 
     // LOGGING FUNCTIONS
+    // the following functions tell saveData what new content to add to the file "Log.txt"
     // Asexual
     void LogAsexual()
     {

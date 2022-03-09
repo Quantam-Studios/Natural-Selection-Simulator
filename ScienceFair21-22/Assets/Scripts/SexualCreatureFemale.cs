@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SexualCreatureFemale : MonoBehaviour
@@ -361,6 +359,7 @@ public class SexualCreatureFemale : MonoBehaviour
         {
             // the offspring should be a MALE
             offspring = Instantiate(SexualMale, transform.position, Quaternion.identity, parentObjectOfOffspring);
+            // give the newly detemrined trait values to the offspring
             offspring.GetComponent<SexualCreatureMale>().size = offspringSize;
             offspring.GetComponent<SexualCreatureMale>().speed = offspringSpeed;
             offspring.GetComponent<SexualCreatureMale>().senseRadius = offspringSenseRadius;
@@ -369,11 +368,15 @@ public class SexualCreatureFemale : MonoBehaviour
         {
             // the offspring should be a FEMALE
             offspring = Instantiate(SexualFemale, transform.position, Quaternion.identity, parentObjectOfOffspring);
+            // give the newly detemrined trait values to the offspring
             offspring.GetComponent<SexualCreatureFemale>().size = offspringSize;
             offspring.GetComponent<SexualCreatureFemale>().speed = offspringSpeed;
             offspring.GetComponent<SexualCreatureFemale>().senseRadius = offspringSenseRadius;
         }
+
+        // take away the energy that it takes to reproduce
         energy -= energyForRep;
+        // esure the state doesn't become stuck in GetMate
         currentState = "Wander";
     }
 

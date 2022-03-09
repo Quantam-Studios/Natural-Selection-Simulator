@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AsexualCreature : MonoBehaviour
@@ -258,14 +256,13 @@ public class AsexualCreature : MonoBehaviour
 
         // Create Offspring
         GameObject offspring = Instantiate(asexualCreature, transform.position, Quaternion.identity, parentObjectOfOffspring);
+        // give the newly detemrined trait values to the offspring
         offspring.GetComponent<AsexualCreature>().size = offspringSize;
         offspring.GetComponent<AsexualCreature>().speed = offspringSpeed;
         offspring.GetComponent<AsexualCreature>().senseRadius = offspringSenseRadius;
-        offspring.GetComponent<AsexualCreature>().energy = 2500;
 
-        // Reset this creatures state, and take away energy
+        // take away the energy that it takes to reproduce
         energy -= energyToRep;
-        currentState = "Wander";
     }
 
     // COLLISION

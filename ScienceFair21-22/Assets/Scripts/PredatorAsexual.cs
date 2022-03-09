@@ -90,7 +90,8 @@ public class PredatorAsexual : MonoBehaviour
         // Set rest
         rest = false;
         // Update statistics
-
+        PredatorStatistics.allTimePredatorAsexualCount += 1;
+        PredatorStatistics.predatorAsexualCount += 1;
         // Set parentObjectOfOffspring to the object holding all PREDATOR creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("PredatorAsexualHolder").transform;
     }
@@ -179,7 +180,7 @@ public class PredatorAsexual : MonoBehaviour
         if (energy <= 0)
         {
             // Update statistics
-
+            PredatorStatistics.predatorAsexualCount -= 1;
             Destroy(gameObject);
         }
 
@@ -258,7 +259,7 @@ public class PredatorAsexual : MonoBehaviour
         int mutateSpeed = Random.Range(0, mutationRate);
         if (mutateSpeed == 1)
             // then mutate speed
-            offspringSpeed = Random.Range(1f, 8f);
+            offspringSpeed = Random.Range(minSpeed, maxSpeed);
 
         // SIZE DETERMINATION
         float offspringSize = size;
@@ -266,7 +267,7 @@ public class PredatorAsexual : MonoBehaviour
         int mutateSize = Random.Range(0, mutationRate);
         if (mutateSize == 1)
             // then mutate size
-            offspringSize = Random.Range(0.1f, 1.5f);
+            offspringSize = Random.Range(minSize, maxSize);
 
         // SENSORY DETERMINATION
         float offspringSenseRadius = senseRadius;
@@ -274,7 +275,7 @@ public class PredatorAsexual : MonoBehaviour
         int mutateSenseRadius = Random.Range(0, mutationRate);
         if (mutateSenseRadius == 1)
             // then mutate sense radius
-            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
+            offspringSenseRadius = Random.Range(minSenseRadius, maxSenseRadius);
 
         // Create Offspring
         GameObject offspring = Instantiate(predatorAsexual, transform.position, Quaternion.identity, parentObjectOfOffspring);
@@ -282,6 +283,7 @@ public class PredatorAsexual : MonoBehaviour
         offspring.GetComponent<PredatorAsexual>().size = offspringSize;
         offspring.GetComponent<PredatorAsexual>().speed = offspringSpeed;
         offspring.GetComponent<PredatorAsexual>().senseRadius = offspringSenseRadius;
+        offspring.GetComponent<PredatorAsexual>().energy = 2500;
 
         // take away the energy that it takes to reproduce
         energy -= energyForRep;

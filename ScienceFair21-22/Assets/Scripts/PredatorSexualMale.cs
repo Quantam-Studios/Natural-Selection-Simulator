@@ -89,7 +89,8 @@ public class PredatorSexualMale : MonoBehaviour
         // Set rest
         rest = false;
         // Update statistics
-
+        PredatorStatistics.predatorSexualCount += 1;
+        PredatorStatistics.allTimePredatorSexualCount += 1;
     }
 
     // Update is called once per frame
@@ -190,7 +191,7 @@ public class PredatorSexualMale : MonoBehaviour
         if (energy <= 0)
         {
             // Update statistics
-
+            PredatorStatistics.predatorSexualCount -= 1;
             Destroy(gameObject);
         }
 

@@ -104,7 +104,8 @@ public class PredatorSexualFemale : MonoBehaviour
         // Set rest
         rest = false;
         // Update statistics
-
+        PredatorStatistics.predatorSexualCount += 1;
+        PredatorStatistics.allTimePredatorSexualCount += 1;
         // Set parentObjectOfOffspring to the object holding all PREDATOR creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("PredatorHolder").transform;
     }
@@ -207,7 +208,7 @@ public class PredatorSexualFemale : MonoBehaviour
         if (energy <= 0)
         {
             // Update statistics
-
+            PredatorStatistics.predatorSexualCount -= 1;
             Destroy(gameObject);
         }
 
@@ -322,7 +323,7 @@ public class PredatorSexualFemale : MonoBehaviour
         int mutateSpeed = Random.Range(0, mutationRate);
         if (mutateSpeed == 1)
             // then mutate speed
-            offspringSpeed = Random.Range(1f, 8f);
+            offspringSpeed = Random.Range(minSpeed, maxSpeed);
         // final check
         // this makes sure the final traits don't go over set maximum or minimum values
         if (offspringSpeed < minSpeed)
@@ -335,12 +336,12 @@ public class PredatorSexualFemale : MonoBehaviour
         // determine variation
         float sizeVariation = Random.Range((offspringSize * -0.2f), (offspringSize * 0.2f));
         // apply variation
-        offspringSpeed += sizeVariation;
+        offspringSize += sizeVariation;
         // mutations of size
         int mutateSize = Random.Range(0, mutationRate);
         if (mutateSize == 1)
             // then mutate size
-            offspringSize = Random.Range(0.1f, 1.5f);
+            offspringSize = Random.Range(minSize, maxSize);
         // final check
         // this makes sure the final traits don't go over set maximum or minimum values
         if (offspringSize < minSize)
@@ -356,15 +357,15 @@ public class PredatorSexualFemale : MonoBehaviour
         offspringSenseRadius += senseRadiusVariation;
         // mutations of sense radius
         int mutateSenseRadius = Random.Range(0, mutationRate);
-        if (mutateSize == 1)
+        if (mutateSenseRadius == 1)
             // then mutate sense radius
-            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
+            offspringSenseRadius = Random.Range(minSenseRadius, maxSenseRadius);
         // final check
         // this makes sure the final traits don't go over set maximum or minimum values
-        if (offspringSize < minSenseRadius)
-            offspringSize = minSenseRadius;
-        if (offspringSize > maxSenseRadius)
-            offspringSize = maxSenseRadius;
+        if (offspringSenseRadius < minSenseRadius)
+            offspringSenseRadius = minSenseRadius;
+        if (offspringSenseRadius > maxSenseRadius)
+            offspringSenseRadius = maxSenseRadius;
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;

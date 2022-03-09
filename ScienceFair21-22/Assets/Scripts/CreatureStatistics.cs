@@ -121,17 +121,17 @@ public class CreatureStatistics : MonoBehaviour
     // Asexual
     void LogAsexual()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " AllTimeCreatures: " + allTimeAsexualCreatureCount.ToString());
+        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " All Time Creatures: " + allTimeAsexualCreatureCount.ToString());
     }
     // Sexual
     void LogSexual()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " AllTimeCreatures: " + allTimeSexualCreatureCount.ToString());
+        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " All Time Creatures: " + allTimeSexualCreatureCount.ToString());
     }
     // Hermaphrodite
     void LogHermaphrodite()
     {
-        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " AllTimeCreatures: " + allTimeHermaphroditeCreatureCount.ToString());
+        saveData.CreateText("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " All Time Creatures: " + allTimeHermaphroditeCreatureCount.ToString());
     }
 
     // Update sexual statistics text

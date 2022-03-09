@@ -43,6 +43,9 @@ public class MenuManager : MonoBehaviour
     // CREATURE STATISTICS
     public GameObject[] creatureStats;
 
+    // PREDATOR STATISTICS
+    public GameObject[] predatorStats;
+
     // FOOD STUFF
     // Food Manager
     public GameObject foodManager;
@@ -52,8 +55,10 @@ public class MenuManager : MonoBehaviour
     public static float foodSpawnRate;
 
     // DATA COLLECTION / LOGGING
-    // New log sections
+    // New log sections / setting recording interval
     public CreatureStatistics creatureStatistics;
+    // Setting recording interval
+    public PredatorStatistics predatorStatistics;
     // general logging
     public static float setDataRecordingInterval;
 
@@ -124,6 +129,7 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1;
         // begin logging
         creatureStatistics.initializeNewLog();
+        predatorStatistics.SetRecordingInterval();
     }
 
     // SET CREATURE
@@ -147,6 +153,8 @@ public class MenuManager : MonoBehaviour
             // set predator type active
             predators[predatorType.value].SetActive(true);
             activePredator[predatorType.value] = true;
+            // set predator statistics active
+            predatorStats[predatorType.value].SetActive(true);
         }
         // set activePredatorIndex for other scripts to act upon
         activePredatorIndex = predatorType.value;

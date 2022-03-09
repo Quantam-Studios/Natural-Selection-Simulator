@@ -322,7 +322,7 @@ public class SexualCreatureFemale : MonoBehaviour
         // determine variation
         float sizeVariation = Random.Range((offspringSize * -0.2f), (offspringSize * 0.2f));
         // apply variation
-        offspringSpeed += sizeVariation;
+        offspringSize += sizeVariation;
         // mutations of size
         int mutateSize = Random.Range(0, mutationRate);
         if (mutateSize == 1)
@@ -343,15 +343,15 @@ public class SexualCreatureFemale : MonoBehaviour
         offspringSenseRadius += senseRadiusVariation;
         // mutations of sense radius
         int mutateSenseRadius = Random.Range(0, mutationRate);
-        if (mutateSize == 1)
+        if (mutateSenseRadius == 1)
             // then mutate sense radius
-            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
+            offspringSenseRadius = Random.Range(minSenseRadius, maxSenseRadius);
         // final check
         // this makes sure the final traits don't go over set maximum or minimum values
-        if (offspringSize < minSenseRadius)
-            offspringSize = minSenseRadius;
-        if (offspringSize > maxSenseRadius)
-            offspringSize = maxSenseRadius;
+        if (offspringSenseRadius < minSenseRadius)
+            offspringSenseRadius = minSenseRadius;
+        if (offspringSenseRadius > maxSenseRadius)
+            offspringSenseRadius = maxSenseRadius;
 
         // SPAWNING OF NEW CREATURE (offSpring)
         GameObject offspring;

@@ -13,9 +13,9 @@ public class AsexualCreature : MonoBehaviour
     public float minEnergyForRep;
     public float minEnergyToBeHungry;
     public float energyInFood;
-    public float energyToRep;
+    public float energyToRep;                                                                                                                       
 
-    // RUN TIME EFFECTED VARIABLES
+     // RUN TIME EFFECTED VARIABLES
     [Header("Simulated Variables")]
     public float energy;
     public bool readyForRep;
@@ -252,7 +252,7 @@ public class AsexualCreature : MonoBehaviour
         int mutateSenseRadius = Random.Range(0, mutationRate);
         if (mutateSenseRadius == 1)
             // then mutate sense radius
-            offspringSize = Random.Range(minSenseRadius, maxSenseRadius);
+            offspringSenseRadius = Random.Range(minSenseRadius, maxSenseRadius);
 
         // Create Offspring
         GameObject offspring = Instantiate(asexualCreature, transform.position, Quaternion.identity, parentObjectOfOffspring);
@@ -260,6 +260,7 @@ public class AsexualCreature : MonoBehaviour
         offspring.GetComponent<AsexualCreature>().size = offspringSize;
         offspring.GetComponent<AsexualCreature>().speed = offspringSpeed;
         offspring.GetComponent<AsexualCreature>().senseRadius = offspringSenseRadius;
+        offspring.GetComponent<AsexualCreature>().energy = 2500;
 
         // take away the energy that it takes to reproduce
         energy -= energyToRep;

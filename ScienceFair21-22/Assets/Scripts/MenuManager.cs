@@ -64,6 +64,7 @@ public class MenuManager : MonoBehaviour
     public PredatorStatistics predatorStatistics;
     // general logging
     public static float setDataRecordingInterval;
+    public static string logFolderName;
 
 
     // Start is called before the first frame update
@@ -96,6 +97,18 @@ public class MenuManager : MonoBehaviour
             // show the pause menu
             pauseMenu.SetActive(true);
         }
+    }
+
+    // Generate Random FolderName
+    string RandomFolderNameGenerator(int length)
+    {
+        string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        string generated_string = "";
+
+        for (int i = 0; i < length; i++)
+            generated_string += characters[UnityEngine.Random.Range(0, length)];
+
+        return generated_string;
     }
 
     // THE FOLLOWING FUNCTIONS ARE CALLED WHEN BUTTONS ON THE "Pause Menu" ARE PRESSED
@@ -184,7 +197,7 @@ public class MenuManager : MonoBehaviour
         // set the food spawn rate to value of spawnRate if the text is not effectively null
         if (spawnRate.text != "")
             foodSpawnRate = float.Parse(spawnRate.text, System.Globalization.CultureInfo.InvariantCulture);
-        else // if not set then defualt to 1 second
+        else // if not set then default to 1 second
             foodSpawnRate = 1;
     }
 
@@ -194,8 +207,18 @@ public class MenuManager : MonoBehaviour
         // set the collection rate to value of collectionRate if the text is not effectively null
         if (collectionRate.text != "")
             setDataRecordingInterval = float.Parse(collectionRate.text, System.Globalization.CultureInfo.InvariantCulture);
-        else // the value was not set so defualt to 2 seconds
+        else // the value was not set so default to 2 seconds
             setDataRecordingInterval = 2f;           
+    }
+
+    // SET NEW LOG FOLDER NAME
+    public void SetLogFolderName(InputField folderName)
+    {
+        // set the folder name to the value of folderName if the text is not effectively null
+        if (folderName.text != "")
+            logFolderName = folderName.text;
+        else // the value was not set so default to a random string
+            logFolderName = RandomFolderNameGenerator(10);
     }
 
     // SET START AMOUNT OF CREATURES (prey)

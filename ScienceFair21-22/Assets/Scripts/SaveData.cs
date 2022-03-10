@@ -1,14 +1,45 @@
 using UnityEngine;
 using System.IO;
 
-
 public class SaveData : MonoBehaviour
 {
-    // Population tracking
-    public void CreatePopulationsLog(string content)
+    string fullPath;
+
+    // Create New Folder
+    public void CreateNewLogFolder(string folderName)
     {
         // path of the file
-        string path = Application.dataPath + "/PopulationsLog.txt";
+        string path = Application.dataPath + "/" + folderName;
+        // create directory if it doesnt exist
+        if (!Directory.Exists(path))
+        {
+            var folder = Directory.CreateDirectory(path);
+        }
+        // set the path for other functions to reference
+        fullPath = path;
+
+        // Create sub folders for prey, and predator data
+        string prey = fullPath + "/prey";
+        // create directory if it doesnt exist
+        if (!Directory.Exists(prey))
+        {
+            var folder = Directory.CreateDirectory(prey);
+        }
+
+        string predators = fullPath + "/predators";
+        // create directory if it doesnt exist
+        if (!Directory.Exists(predators))
+        {
+            var folder = Directory.CreateDirectory(predators);
+        }
+    }
+
+    // LOGGING OF PREY
+    // Population tracking
+    public void CreatePreyPopulationLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/prey/PopulationsLog.txt";
         // create file if it doesnt exist
         if (!File.Exists(path))
         {
@@ -18,16 +49,56 @@ public class SaveData : MonoBehaviour
         File.AppendAllText(path, content + "\n");
     }
 
-
-    // Trait tracking
-    public void CreateTraitsLog(string content)
+    // size
+    public void CreatePreySizeLog(string content)
     {
         // path of the file
-        string path = Application.dataPath + "/TraitsLog.txt";
+        string path = fullPath + "/prey/SizeLog.txt";
         // create file if it doesnt exist
         if (!File.Exists(path))
         {
-            File.WriteAllText(path, "Trait Logs:\n");
+            File.WriteAllText(path, "Prey Size Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
+    // speed
+    public void CreatePreySpeedLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/prey/SpeedLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Prey Speed Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
+    // sense radius
+    public void CreatePreySenseRadiusLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/prey/SenseRadiusLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Prey SenseRadius Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
+
+    // LOGGING OF PREDATORS
+    // Population tracking
+    public void CreatePredatorPopulationLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/predators/PopulationsLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Predator Population Logs:\n");
         }
         // add the content
         File.AppendAllText(path, content + "\n");

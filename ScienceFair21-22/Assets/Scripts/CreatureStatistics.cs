@@ -96,15 +96,18 @@ public class CreatureStatistics : MonoBehaviour
     // this ensures that all values, and settings chosen by the user have been set. 
     public void initializeNewLog()
     {
+        // VERY IMPORTANT
+        // create the new folder, and sub folder for this simulation's logs
+        saveData.CreateNewLogFolder(MenuManager.logFolderName);
         // Set recordingInterval 
         setRecordInterval = MenuManager.setDataRecordingInterval;
         // Create a description of the circumstances on the log
-        saveData.CreatePopulationsLog("\n\n New Data Set \n" + activeCreatureName[MenuManager.activeCreatureIndex] + " creatures with " + activePredatorName[MenuManager.activePredatorIndex] + " predators\n");
+        saveData.CreatePreyPopulationLog("\n\n New Data Set \n" + activeCreatureName[MenuManager.activeCreatureIndex] + " creatures with " + activePredatorName[MenuManager.activePredatorIndex] + " predators\n");
         // Determine and format time limit into a string
         TimeSpan timeSpan = TimeSpan.FromSeconds(0 + timer.timeLimits[timer.activeTimeLimitIndex]);
         string timeLimit = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
         // Add all presets, and inital values to the log
-        saveData.CreatePopulationsLog("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initialCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
+        saveData.CreatePreyPopulationLog("Time Limit: " + timeLimit + " Inital Creature Count: " + MenuManager.initialCreatureCount.ToString() + " Initial Food Count: " + MenuManager.initalFood + " Food Spawn Rate: " + MenuManager.foodSpawnRate + "\n");
     }
 
     // Update is called once per frame
@@ -146,34 +149,34 @@ public class CreatureStatistics : MonoBehaviour
     // Asexual
     void LogAsexual()
     {
-        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " All Time Creatures: " + allTimeAsexualCreatureCount.ToString());
+        saveData.CreatePreyPopulationLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + asexualCreatureCount.ToString() + " All Time Creatures: " + allTimeAsexualCreatureCount.ToString());
     }
     // Sexual
     void LogSexual()
     {
-        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " All Time Creatures: " + allTimeSexualCreatureCount.ToString());
+        saveData.CreatePreyPopulationLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + sexualCreatureCount.ToString() + " All Time Creatures: " + allTimeSexualCreatureCount.ToString());
     }
     // Hermaphrodite
     void LogHermaphrodite()
     {
-        saveData.CreatePopulationsLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " All Time Creatures: " + allTimeHermaphroditeCreatureCount.ToString());
+        saveData.CreatePreyPopulationLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " All Time Creatures: " + allTimeHermaphroditeCreatureCount.ToString());
     }
     // the following functions tell saveData what new content to add to the file "TraitsLog.txt"
     // TRAIT STATS
     // Size
     void LogSize()
     {
-        saveData.CreateTraitsLog("Size: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + sizeDivisionTracker[0].ToString() + " Division 2: " + sizeDivisionTracker[1].ToString() + " Division 3: " + sizeDivisionTracker[2].ToString() + " Division 4: " + sizeDivisionTracker[3].ToString() + " Division 5: " + sizeDivisionTracker[4].ToString());
+        saveData.CreatePreySizeLog("Size: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + sizeDivisionTracker[0].ToString() + " Division 2: " + sizeDivisionTracker[1].ToString() + " Division 3: " + sizeDivisionTracker[2].ToString() + " Division 4: " + sizeDivisionTracker[3].ToString() + " Division 5: " + sizeDivisionTracker[4].ToString());
     }
     // Speed
     void LogSpeed()
     {
-        saveData.CreateTraitsLog("Speed: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + speedDivisionTracker[0].ToString() + " Division 2: " + speedDivisionTracker[1].ToString() + " Division 3: " + speedDivisionTracker[2].ToString() + " Division 4: " + speedDivisionTracker[3].ToString() + " Division 5: " + speedDivisionTracker[4].ToString());
+        saveData.CreatePreySpeedLog("Speed: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + speedDivisionTracker[0].ToString() + " Division 2: " + speedDivisionTracker[1].ToString() + " Division 3: " + speedDivisionTracker[2].ToString() + " Division 4: " + speedDivisionTracker[3].ToString() + " Division 5: " + speedDivisionTracker[4].ToString());
     }
     // Sense Radius
     void LogSenseRadius()
     {
-        saveData.CreateTraitsLog(" Sense Radius: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + senseRadiusDivisionTracker[0].ToString() + " Division 2: " + senseRadiusDivisionTracker[1].ToString() + " Division 3: " + senseRadiusDivisionTracker[2].ToString() + " Division 4: " + senseRadiusDivisionTracker[3].ToString() + " Division 5: " + senseRadiusDivisionTracker[4].ToString());
+        saveData.CreatePreySenseRadiusLog(" Sense Radius: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + senseRadiusDivisionTracker[0].ToString() + " Division 2: " + senseRadiusDivisionTracker[1].ToString() + " Division 3: " + senseRadiusDivisionTracker[2].ToString() + " Division 4: " + senseRadiusDivisionTracker[3].ToString() + " Division 5: " + senseRadiusDivisionTracker[4].ToString());
     }
 
     // Update sexual statistics text

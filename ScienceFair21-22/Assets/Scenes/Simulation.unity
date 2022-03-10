@@ -5203,6 +5203,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e0f706302f23c4f9a1e64b78ce0af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sizeDivisions:
+  - 0.33
+  - 0.66
+  - 0.99
+  - 1.32
+  - 1.65
+  speedDivisions:
+  - 1.66
+  - 3.32
+  - 4.98
+  - 6.64
+  - 8.3
+  senseRadiusDivisions:
+  - 1.66
+  - 3.32
+  - 4.98
+  - 6.64
+  - 8.3
   predatorSsexualCountText: {fileID: 717296455}
   allTimePredatorSexualCountText: {fileID: 1297021890}
   predatorAsexualCountText: {fileID: 636411127}

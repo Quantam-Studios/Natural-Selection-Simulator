@@ -8,6 +8,12 @@ public class PredatorSexualFemale : MonoBehaviour
     public float size;
     public float senseRadius;
     public string[] chromosomes;
+    // tracking of traits
+    private PredatorStatistics predatorStatistics;
+    // trait divisions
+    public int speedDiv;
+    public int sizeDiv;
+    public int senseRadiusDiv;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -93,6 +99,9 @@ public class PredatorSexualFemale : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
+        // Get statistics reference
+        predatorStatistics = FindObjectOfType<PredatorStatistics>();
+
         // Set chromosomes
         chromosomes = new string[2];
         chromosomes[0] = "X";
@@ -104,8 +113,25 @@ public class PredatorSexualFemale : MonoBehaviour
         // Set rest
         rest = false;
         // Update statistics
+        // POPULATIONS ones
         PredatorStatistics.predatorSexualCount += 1;
         PredatorStatistics.allTimePredatorSexualCount += 1;
+        // TRAIT ones
+        // Get Divisions
+        // size
+        sizeDiv = predatorStatistics.getSizeDivision(size);
+        // speed
+        speedDiv = predatorStatistics.getSpeedDivision(speed);
+        // sense radius
+        senseRadiusDiv = predatorStatistics.getSenseRadiusDivision(senseRadius);
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] += 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] += 1;
+
         // Set parentObjectOfOffspring to the object holding all PREDATOR creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("PredatorHolder").transform;
     }
@@ -448,5 +474,20 @@ public class PredatorSexualFemale : MonoBehaviour
             // Start timer to move back to original layer 
             swapSides = true;
         }
+    }
+
+    // When Destroy() is called on this object
+    private void OnDestroy()
+    {
+        // Update Statistics
+        // Population
+        PredatorStatistics.predatorSexualCount -= 1;
+        // Update Trait Stats
+        // size
+        PredatorStatistics.sizeDivisionTracker[sizeDiv] -= 1;
+        // speed
+        PredatorStatistics.speedDivisionTracker[speedDiv] -= 1;
+        // sense radius
+        PredatorStatistics.senseRadiusDivisionTracker[senseRadiusDiv] -= 1;
     }
 }

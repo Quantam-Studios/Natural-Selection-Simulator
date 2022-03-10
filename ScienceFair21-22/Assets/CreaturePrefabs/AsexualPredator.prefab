@@ -100,6 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   size: 1
+  speedDiv: 0
+  sizeDiv: 0
+  senseRadiusDiv: 0
   minEnergyForRep: 20000
   minEnergyToBeHungry: 8000
   energyInFood: 2500
@@ -130,7 +133,7 @@ MonoBehaviour:
   minSpeed: 1
   maxSpeed: 10
   minSenseRadius: 0.1
-  maxSenseRadius: 4
+  maxSenseRadius: 10
 --- !u!50 &9035383430721153044
 Rigidbody2D:
   serializedVersion: 4

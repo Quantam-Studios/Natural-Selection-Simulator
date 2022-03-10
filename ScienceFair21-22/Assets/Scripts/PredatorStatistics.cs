@@ -13,6 +13,17 @@ public class PredatorStatistics : MonoBehaviour
     // Hermaphrodite
     public static int predatorHermaphroditeCount;
     public static int allTimePredatorHermaphroditeCount;
+    // TRAITS
+    [Header("Trait Tracking")]
+    // Size
+    public float[] sizeDivisions;
+    public static int[] sizeDivisionTracker;
+    // Speed
+    public float[] speedDivisions;
+    public static int[] speedDivisionTracker;
+    // Sense Radius
+    public float[] senseRadiusDivisions;
+    public static int[] senseRadiusDivisionTracker;
 
     // TEXT OBJECTS FOR DISPLAYING STATISTICS
     // Sexual
@@ -50,6 +61,14 @@ public class PredatorStatistics : MonoBehaviour
         predatorSexualCount = 0;
         predatorAsexualCount = 0;
         predatorHermaphroditeCount = 0;
+
+        // Initialize trait division tracker arrays
+        // Size
+        sizeDivisionTracker = new int[5];
+        // Speed
+        speedDivisionTracker = new int[5];
+        // Sense Radius
+        senseRadiusDivisionTracker = new int[5];
     }
 
     // Set RecordingInterval
@@ -85,6 +104,10 @@ public class PredatorStatistics : MonoBehaviour
                 LogAsexual();
             if (MenuManager.activePredator[2])
                 LogHermaphrodite();
+            // Log trait stats
+            LogSize();
+            LogSpeed();
+            LogSenseRadius();
         }
     }
 
@@ -104,6 +127,22 @@ public class PredatorStatistics : MonoBehaviour
     void LogHermaphrodite()
     {
         saveData.CreatePredatorPopulationLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Predators: " + predatorHermaphroditeCount.ToString() + " All Time Predators: " + allTimePredatorHermaphroditeCount.ToString());
+    }
+    // TRAIT STATS
+    // Size
+    void LogSize()
+    {
+        saveData.CreatePredatorSizeLog("Size: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + sizeDivisionTracker[0].ToString() + " Division 2: " + sizeDivisionTracker[1].ToString() + " Division 3: " + sizeDivisionTracker[2].ToString() + " Division 4: " + sizeDivisionTracker[3].ToString() + " Division 5: " + sizeDivisionTracker[4].ToString());
+    }
+    // Speed
+    void LogSpeed()
+    {
+        saveData.CreatePredatorSpeedLog("Speed: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + speedDivisionTracker[0].ToString() + " Division 2: " + speedDivisionTracker[1].ToString() + " Division 3: " + speedDivisionTracker[2].ToString() + " Division 4: " + speedDivisionTracker[3].ToString() + " Division 5: " + speedDivisionTracker[4].ToString());
+    }
+    // Sense Radius
+    void LogSenseRadius()
+    {
+        saveData.CreatePredatorSenseRadiusLog(" Sense Radius: Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Division 1: " + senseRadiusDivisionTracker[0].ToString() + " Division 2: " + senseRadiusDivisionTracker[1].ToString() + " Division 3: " + senseRadiusDivisionTracker[2].ToString() + " Division 4: " + senseRadiusDivisionTracker[3].ToString() + " Division 5: " + senseRadiusDivisionTracker[4].ToString());
     }
 
     // Update sexual statistics text
@@ -134,6 +173,53 @@ public class PredatorStatistics : MonoBehaviour
         predatorHermaphroditeCountText.text = "Total Pred. Hermaphrodite: " + predatorHermaphroditeCount.ToString();
         // Update the all time total hermaphrodite creature count text
         allTimePredatorHermaphroditeCountText.text = "Total Pred. Hermaphrodite Born: " + allTimePredatorHermaphroditeCount.ToString();
+    }
+
+    // DETERMINE DIVISION OF TRAITS
+    // Size
+    public int getSizeDivision(float size)
+    {
+        int division = 0;
+        // compare size to divisions
+        for (int i = 0; i < sizeDivisions.Length; i++)
+        {
+            // check if the size is smaller than or equal to the division
+            if (size >= sizeDivisions[i])
+                division = i;
+            // if not then continue
+        }
+        // return the division for later use in 
+        return division;
+    }
+    // Speed
+    public int getSpeedDivision(float speed)
+    {
+        int division = 0;
+        // compare speed to divisions
+        for (int i = 0; i < speedDivisions.Length; i++)
+        {
+            // check if the speed is smaller than or equal to the division
+            if (speed >= speedDivisions[i])
+                division = i;
+            // if not then continue
+        }
+        // return the division for later use in 
+        return division;
+    }
+    // Sense Radius
+    public int getSenseRadiusDivision(float senseRadius)
+    {
+        int division = 0;
+        // compare sense radius to divisions
+        for (int i = 0; i < senseRadiusDivisions.Length; i++)
+        {
+            // check if the sense radius is smaller than or equal to the division
+            if (senseRadius >= senseRadiusDivisions[i])
+                division = i;
+            // if not then continue
+        }
+        // return the division for later use in 
+        return division;
     }
 
 }

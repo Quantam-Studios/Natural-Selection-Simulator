@@ -137,8 +137,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   size: 1
-  senseRadius: 2
+  senseRadius: 4
   chromosomes: []
+  speedDiv: 0
+  sizeDiv: 0
+  senseRadiusDiv: 0
   minEnergyForRep: 20000
   minEnergyToBeHungry: 8000
   energyInFood: 2500

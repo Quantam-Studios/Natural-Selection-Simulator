@@ -8,6 +8,12 @@ public class SexualCreatureMale : MonoBehaviour
     public float size;
     public float senseRadius;
     public string[] chromosomes;
+    // tracking of traits
+    private CreatureStatistics creatureStatistics;
+    // trait divisions
+    public int speedDiv;
+    public int sizeDiv;
+    public int senseRadiusDiv;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -76,6 +82,9 @@ public class SexualCreatureMale : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
+        // Get statistics reference
+        creatureStatistics = FindObjectOfType<CreatureStatistics>();
+
         // Set chromosomes
         chromosomes = new string[2];
         chromosomes[0] = "X";
@@ -83,10 +92,26 @@ public class SexualCreatureMale : MonoBehaviour
         // Set timeBtwRep
         timeBtwRep = setTimeBtwRep;
         // Update statistics
+        // POPULATIONS ones
         CreatureStatistics.sexualCreatureCount += 1;
         CreatureStatistics.maleSexualCreatureCount += 1;
         CreatureStatistics.allTimeMaleCreatureCount += 1;
         CreatureStatistics.allTimeSexualCreatureCount += 1;
+        // TRAIT ones
+        // Get Divisions
+        // size
+        sizeDiv = creatureStatistics.getSizeDivision(size);
+        // speed
+        speedDiv = creatureStatistics.getSpeedDivision(speed);
+        // sense radius
+        senseRadiusDiv = creatureStatistics.getSenseRadiusDivision(senseRadius);
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] += 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] += 1;
     }
 
     // Update is called once per frame
@@ -323,7 +348,15 @@ public class SexualCreatureMale : MonoBehaviour
     private void OnDestroy()
     {
         // Update Statistics
+        // Population
         CreatureStatistics.sexualCreatureCount -= 1;
         CreatureStatistics.maleSexualCreatureCount -= 1;
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] -= 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] -= 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] -= 1;
     }
 }

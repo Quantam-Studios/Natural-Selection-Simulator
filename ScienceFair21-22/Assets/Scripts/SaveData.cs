@@ -103,4 +103,43 @@ public class SaveData : MonoBehaviour
         // add the content
         File.AppendAllText(path, content + "\n");
     }
+    // size
+    public void CreatePredatorSizeLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/predators/SizeLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Predator Size Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
+    // speed
+    public void CreatePredatorSpeedLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/predators/SpeedLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Predator Speed Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
+    // sense radius
+    public void CreatePredatorSenseRadiusLog(string content)
+    {
+        // path of the file
+        string path = fullPath + "/predators/SenseRadiusLog.txt";
+        // create file if it doesnt exist
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "Predator SenseRadius Logs:\n");
+        }
+        // add the content
+        File.AppendAllText(path, content + "\n");
+    }
 }

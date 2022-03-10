@@ -144,7 +144,6 @@ public class CreatureStatistics : MonoBehaviour
     }
 
     // LOGGING FUNCTIONS
-    // the following functions tell saveData what new content to add to the file "PopulationsLog.txt"
     // POPULATION STATS
     // Asexual
     void LogAsexual()
@@ -161,7 +160,6 @@ public class CreatureStatistics : MonoBehaviour
     {
         saveData.CreatePreyPopulationLog("Time: " + Mathf.FloorToInt(Timer.time).ToString() + " Creatures: " + hermaphroditeCreatureCount.ToString() + " All Time Creatures: " + allTimeHermaphroditeCreatureCount.ToString());
     }
-    // the following functions tell saveData what new content to add to the file "TraitsLog.txt"
     // TRAIT STATS
     // Size
     void LogSize()

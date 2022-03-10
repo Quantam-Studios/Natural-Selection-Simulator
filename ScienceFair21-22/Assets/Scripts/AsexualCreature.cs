@@ -72,7 +72,6 @@ public class AsexualCreature : MonoBehaviour
     public float minSenseRadius;
     public float maxSenseRadius;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -110,7 +109,7 @@ public class AsexualCreature : MonoBehaviour
         CreatureStatistics.speedDivisionTracker[speedDiv] += 1;
         // sense radius
         CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] += 1;
-
+        
         // Set parentObjectOfOffspring to the object holding all ASEXUAL creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("AsexualCreatureHolder").transform;
     }

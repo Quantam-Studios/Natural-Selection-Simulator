@@ -1,12 +1,18 @@
 using UnityEngine;
 
-public class HermaphroditeCreature   : MonoBehaviour
+public class HermaphroditeCreature : MonoBehaviour
 {
     // TRAITS
     [Header("Trait Values")]
     public float speed;
     public float size;
     public float senseRadius;
+    // tracking of traits
+    private CreatureStatistics creatureStatistics;
+    // trait divisions
+    public int speedDiv;
+    public int sizeDiv;
+    public int senseRadiusDiv;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -89,11 +95,31 @@ public class HermaphroditeCreature   : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
+        // Get statistics reference
+        creatureStatistics = FindObjectOfType<CreatureStatistics>();
+
         // Set timeBtwRep
         timeBtwRep = setTimeBtwRep;
         // Update statistics
+        // POPULATIONS ones
         CreatureStatistics.allTimeHermaphroditeCreatureCount += 1;
         CreatureStatistics.hermaphroditeCreatureCount += 1;
+        // TRAIT ones
+        // Get Divisions
+        // size
+        sizeDiv = creatureStatistics.getSizeDivision(size);
+        // speed
+        speedDiv = creatureStatistics.getSpeedDivision(speed);
+        // sense radius
+        senseRadiusDiv = creatureStatistics.getSenseRadiusDivision(senseRadius);
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] += 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] += 1;
+
         // Set parentObjectOfOffspring to the object holding all HERMAPHRODITE creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("HermaphroditeHolder").transform;
     }
@@ -397,7 +423,15 @@ public class HermaphroditeCreature   : MonoBehaviour
     private void OnDestroy()
     {
         // Update Statistics
+        // Population
         CreatureStatistics.hermaphroditeCreatureCount -= 1;
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] -= 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] -= 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] -= 1;
     }
 }
 

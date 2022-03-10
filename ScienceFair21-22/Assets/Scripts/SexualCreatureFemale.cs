@@ -8,6 +8,12 @@ public class SexualCreatureFemale : MonoBehaviour
     public float size;
     public float senseRadius;
     public string[] chromosomes;
+    // tracking of traits
+    private CreatureStatistics creatureStatistics;
+    // trait divisions
+    public int speedDiv;
+    public int sizeDiv;
+    public int senseRadiusDiv;
 
     // ENERGY SETTINGS
     [Header("Energy Settings")]
@@ -91,6 +97,9 @@ public class SexualCreatureFemale : MonoBehaviour
         swapSides = false;
         // Set initialLayer
         initialLayer = gameObject.layer;
+        // Get statistics reference
+        creatureStatistics = FindObjectOfType<CreatureStatistics>();
+
         // Set chromosomes
         chromosomes = new string[2];
         chromosomes[0] = "X";
@@ -98,10 +107,27 @@ public class SexualCreatureFemale : MonoBehaviour
         // Set timeBtwRep
         timeBtwRep = setTimeBtwRep;
         // Update statistics
+        // POPULATIONS ones
         CreatureStatistics.sexualCreatureCount += 1;
         CreatureStatistics.femaleSexualCreatureCount += 1;
         CreatureStatistics.allTimeFemaleCreatureCount += 1;
         CreatureStatistics.allTimeSexualCreatureCount += 1;
+        // TRAIT ones
+        // Get Divisions
+        // size
+        sizeDiv = creatureStatistics.getSizeDivision(size);
+        // speed
+        speedDiv = creatureStatistics.getSpeedDivision(speed);
+        // sense radius
+        senseRadiusDiv = creatureStatistics.getSenseRadiusDivision(senseRadius);
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] += 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] += 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] += 1;
+
         // Set parentObjectOfOffspring to the object holding all SEXUAL creatures
         parentObjectOfOffspring = GameObject.FindGameObjectWithTag("SexualCreatureHolder").transform;
     }
@@ -424,8 +450,16 @@ public class SexualCreatureFemale : MonoBehaviour
     private void OnDestroy()
     {
         // Update Statistics
+        // Population
         CreatureStatistics.sexualCreatureCount -= 1;
         CreatureStatistics.femaleSexualCreatureCount -= 1;
+        // Update Trait Stats
+        // size
+        CreatureStatistics.sizeDivisionTracker[sizeDiv] -= 1;
+        // speed
+        CreatureStatistics.speedDivisionTracker[speedDiv] -= 1;
+        // sense radius
+        CreatureStatistics.senseRadiusDivisionTracker[senseRadiusDiv] -= 1;
     }
 }
 

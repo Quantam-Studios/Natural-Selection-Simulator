@@ -109,7 +109,7 @@ MonoBehaviour:
   energyForRep: 10000
   setRestTime: 3
   rest: 0
-  energy: 20000
+  energy: 5000
   readyForRep: 0
   timeBtwRep: 0
   move: 0

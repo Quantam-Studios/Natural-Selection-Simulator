@@ -372,6 +372,7 @@ public class HermaphroditeCreature : MonoBehaviour
         offspring.GetComponent<HermaphroditeCreature>().size = offspringSize;
         offspring.GetComponent<HermaphroditeCreature>().speed = offspringSpeed;
         offspring.GetComponent<HermaphroditeCreature>().senseRadius = offspringSenseRadius;
+        offspring.GetComponent<HermaphroditeCreature>().energy = 2500;
 
         // take away the energy that it takes to reproduce
         energy -= energyForRep;

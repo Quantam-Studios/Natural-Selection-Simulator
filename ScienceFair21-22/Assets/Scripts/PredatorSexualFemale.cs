@@ -403,6 +403,7 @@ public class PredatorSexualFemale : MonoBehaviour
             offspring.GetComponent<PredatorSexualMale>().size = offspringSize;
             offspring.GetComponent<PredatorSexualMale>().speed = offspringSpeed;
             offspring.GetComponent<PredatorSexualMale>().senseRadius = offspringSenseRadius;
+            offspring.GetComponent<PredatorSexualMale>().energy = 5000;
         }
         else if (offspringChromosomes[1] == "X")
         {
@@ -412,6 +413,7 @@ public class PredatorSexualFemale : MonoBehaviour
             offspring.GetComponent<PredatorSexualFemale>().size = offspringSize;
             offspring.GetComponent<PredatorSexualFemale>().speed = offspringSpeed;
             offspring.GetComponent<PredatorSexualFemale>().senseRadius = offspringSenseRadius;
+            offspring.GetComponent<PredatorSexualFemale>().energy = 5000;
         }
         // take away the energy that it takes to reproduce
         energy -= energyForRep;

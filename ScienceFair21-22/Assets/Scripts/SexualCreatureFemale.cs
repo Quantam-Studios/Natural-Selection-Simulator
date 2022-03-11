@@ -389,6 +389,7 @@ public class SexualCreatureFemale : MonoBehaviour
             offspring.GetComponent<SexualCreatureMale>().size = offspringSize;
             offspring.GetComponent<SexualCreatureMale>().speed = offspringSpeed;
             offspring.GetComponent<SexualCreatureMale>().senseRadius = offspringSenseRadius;
+            offspring.GetComponent<SexualCreatureMale>().energy = 2500;
         }
         else if(offspringChromosomes[1] == "X")
         {
@@ -398,6 +399,7 @@ public class SexualCreatureFemale : MonoBehaviour
             offspring.GetComponent<SexualCreatureFemale>().size = offspringSize;
             offspring.GetComponent<SexualCreatureFemale>().speed = offspringSpeed;
             offspring.GetComponent<SexualCreatureFemale>().senseRadius = offspringSenseRadius;
+            offspring.GetComponent<SexualCreatureFemale>().energy = 2500;
         }
 
         // take away the energy that it takes to reproduce

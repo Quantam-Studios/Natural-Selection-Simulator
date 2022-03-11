@@ -309,7 +309,7 @@ public class PredatorAsexual : MonoBehaviour
         offspring.GetComponent<PredatorAsexual>().size = offspringSize;
         offspring.GetComponent<PredatorAsexual>().speed = offspringSpeed;
         offspring.GetComponent<PredatorAsexual>().senseRadius = offspringSenseRadius;
-        offspring.GetComponent<PredatorAsexual>().energy = 2500;
+        offspring.GetComponent<PredatorAsexual>().energy = 5000;
 
         // take away the energy that it takes to reproduce
         energy -= energyForRep;

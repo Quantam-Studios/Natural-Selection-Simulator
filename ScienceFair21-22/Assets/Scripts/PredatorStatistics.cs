@@ -28,7 +28,7 @@ public class PredatorStatistics : MonoBehaviour
     // TEXT OBJECTS FOR DISPLAYING STATISTICS
     // Sexual
     [Header("Pred. Sexual Stat Text")]
-    public Text predatorSsexualCountText;
+    public Text predatorSexualCountText;
     public Text allTimePredatorSexualCountText;
     // Asexual
     [Header("Pred. Asexual Stat Text")]
@@ -150,7 +150,7 @@ public class PredatorStatistics : MonoBehaviour
     {
         // SEXUAL STATS
         // Update the total sexual creature count text
-        predatorSsexualCountText.text = "Total Pred. Sexual: " + predatorSexualCount.ToString();
+        predatorSexualCountText.text = "Total Pred. Sexual: " + predatorSexualCount.ToString();
         // Update the all time total sexual creature count text
         allTimePredatorSexualCountText.text = "Total Pred. Sexual Born: " + allTimePredatorSexualCount.ToString();
     }

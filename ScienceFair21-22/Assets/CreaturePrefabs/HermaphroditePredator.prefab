@@ -105,7 +105,7 @@ MonoBehaviour:
   senseRadiusDiv: 0
   minEnergyForRep: 20000
   minEnergyToBeHungry: 8000
-  energyInFood: 2500
+  energyInFood: 10000
   energyForRep: 10000
   setRestTime: 3
   rest: 0

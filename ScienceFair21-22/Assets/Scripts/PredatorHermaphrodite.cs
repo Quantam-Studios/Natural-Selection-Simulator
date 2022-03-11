@@ -229,8 +229,6 @@ public class PredatorHermaphrodite : MonoBehaviour
         // this will run if the energy of the predator ever reaches 0
         if (energy <= 0)
         {
-            // Update statistics
-            PredatorStatistics.predatorHermaphroditeCount -= 1;
             Destroy(gameObject);
         }
 
@@ -417,7 +415,7 @@ public class PredatorHermaphrodite : MonoBehaviour
             if (size >= col.gameObject.transform.localScale.x)
             {
                 // catch prey or not
-                float sizeDifference = (size -= col.gameObject.transform.localScale.x);
+                float sizeDifference = (size - col.gameObject.transform.localScale.x);
                 float chanceToCatch = Random.Range(0f, sizeDifference);
 
                 // if chanceToCatch is greater than 50% of sizeDifference then eat food

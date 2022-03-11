@@ -52,7 +52,7 @@ public class AsexualCreature : MonoBehaviour
     // check for predators
     public bool notSafe;
     public LayerMask predators;
-    private Vector2 predatorPos;
+    private Vector3 predatorPos;
     // check for food
     public bool foodClose;
     public LayerMask food;
@@ -237,8 +237,15 @@ public class AsexualCreature : MonoBehaviour
         else
         {
             // get the opposite position and then set to predatorPos
-            predatorPos = Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0).gameObject.transform.position * -1;
-            currentState = "Flee";
+            predatorPos = gameObject.transform.position - Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0).gameObject.transform.position;
+            if (Vector3.Distance(transform.position, predatorPos) <= senseRadius)
+            {
+                currentState = "Flee";
+            }
+            else
+            {
+                currentState = "Wander";
+            }
         }
     }
 

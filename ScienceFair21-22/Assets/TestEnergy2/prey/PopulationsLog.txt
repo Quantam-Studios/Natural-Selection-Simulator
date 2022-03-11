@@ -1,9 +1,0 @@
-Population Logs:
-
-
- New Data Set 
-Hermaphrodite creatures with no predators
-
-Time Limit: 00:01:00 Inital Creature Count: 10 Initial Food Count: 100 Food Spawn Rate: 1
-
-Time: 0 Creatures: 10 All Time Creatures: 10

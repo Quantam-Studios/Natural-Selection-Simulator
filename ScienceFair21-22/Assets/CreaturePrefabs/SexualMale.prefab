@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6e3566f8db12f4bafe38e0e735b8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
   size: 1
   senseRadius: 3
   chromosomes: []

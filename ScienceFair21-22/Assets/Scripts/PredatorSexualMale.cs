@@ -215,8 +215,6 @@ public class PredatorSexualMale : MonoBehaviour
         // this will run if the energy of the predator ever reaches 0
         if (energy <= 0)
         {
-            // Update statistics
-            PredatorStatistics.predatorSexualCount -= 1;
             Destroy(gameObject);
         }
 

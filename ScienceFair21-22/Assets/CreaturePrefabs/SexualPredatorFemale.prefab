@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71daaea65ec7b846a55f292bc746a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   size: 1
   senseRadius: 4
   chromosomes: []
@@ -144,7 +144,7 @@ MonoBehaviour:
   senseRadiusDiv: 0
   minEnergyForRep: 20000
   minEnergyToBeHungry: 8000
-  energyInFood: 2500
+  energyInFood: 10000
   energyForRep: 10000
   setRestTime: 3
   rest: 0

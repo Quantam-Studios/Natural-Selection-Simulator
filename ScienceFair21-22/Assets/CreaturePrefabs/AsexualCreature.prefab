@@ -98,10 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1fe13e9570f904a866b8c34cdf2097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
   size: 1
   senseRadius: 3
-  creatureStatistics: {fileID: 6699449591651812900, guid: 5f3ea29898616fc4fa14baec22e33b1f, type: 3}
   speedDiv: 0
   sizeDiv: 0
   senseRadiusDiv: 0

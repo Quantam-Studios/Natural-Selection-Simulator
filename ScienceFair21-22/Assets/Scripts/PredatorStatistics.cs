@@ -60,7 +60,7 @@ public class PredatorStatistics : MonoBehaviour
         // Reset current stats
         predatorSexualCount = 0;
         predatorAsexualCount = 0;
-        predatorHermaphroditeCount = 0;
+        predatorHermaphroditeCount = 0; 
 
         // Initialize trait division tracker arrays
         // Size

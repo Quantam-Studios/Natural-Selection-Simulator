@@ -282,7 +282,7 @@ public class SexualCreatureMale : MonoBehaviour
         {
             // get the opposite position and then set to predatorPos
             predatorPos = gameObject.transform.position - Physics2D.OverlapCircle(transform.position, senseRadius, predators, 0).gameObject.transform.position;
-            if (Vector3.Distance(transform.position, predatorPos) <= senseRadius)
+            if (Vector3.Distance(transform.position, predatorPos) < senseRadius)
             {
                 currentState = "Flee";
             }

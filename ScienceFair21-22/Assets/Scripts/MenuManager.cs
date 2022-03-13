@@ -82,6 +82,17 @@ public class MenuManager : MonoBehaviour
         // initialize pausing, and simulation state management bools
         paused = false;
         simStarted = false;
+        // reset active predator and creature (prey) bools
+        // predators
+        for (int i = 0; i < activePredator.Length; i++)
+        {
+            activePredator[i] = false;
+        }
+        // prey
+        for (int i = 0; i < activeCreatures.Length; i++)
+        {
+            activeCreatures[i] = false;
+        }
     }
 
     private void Update()

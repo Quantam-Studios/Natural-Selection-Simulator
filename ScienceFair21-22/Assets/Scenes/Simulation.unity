@@ -8133,7 +8133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &774675905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21376,6 +21376,7 @@ MonoBehaviour:
   paused: 0
   simStarted: 0
   timer: {fileID: 727430563}
+  setTimeScale: 4
   creatures:
   - {fileID: 701712849}
   - {fileID: 2073606335}

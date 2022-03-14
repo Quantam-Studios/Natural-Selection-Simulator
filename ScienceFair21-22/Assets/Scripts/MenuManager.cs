@@ -21,6 +21,9 @@ public class MenuManager : MonoBehaviour
 
     // TIME LIMIT
     public Timer timer;
+    // time
+    public float setTimeScale;
+    public static float timeScale;
 
     // CREATURE TYPE
     // For interactivity between other scripts
@@ -93,6 +96,9 @@ public class MenuManager : MonoBehaviour
         {
             activeCreatures[i] = false;
         }
+
+        // set timeScale
+        timeScale = setTimeScale;
     }
 
     private void Update()
@@ -138,7 +144,7 @@ public class MenuManager : MonoBehaviour
         // set false to allow pausing to happen again
         paused = false;
         // start time
-        Time.timeScale = 1;
+        Time.timeScale = timeScale;
     }
 
     // THE FOLLOWING FUNCTIONS ARE CALLED WHEN THE BUTTON "Run Simulation Button" IS PRESSED
@@ -153,7 +159,7 @@ public class MenuManager : MonoBehaviour
         foodManager.SetActive(true);
         // begin simulating
         simStarted = true;
-        Time.timeScale = 1;
+        Time.timeScale = timeScale;
         // begin logging
         creatureStatistics.initializeNewLog();
         predatorStatistics.SetRecordingInterval();

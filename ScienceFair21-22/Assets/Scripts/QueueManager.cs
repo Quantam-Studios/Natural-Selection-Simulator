@@ -8,6 +8,9 @@ public class QueueManager : MonoBehaviour
     public int activeTrialIndex;
     public bool started;
 
+    // THESE ARE FOR OTHER SCRIPTS TO KNOW WHAT TO DO
+
+
     // Start is called before the first frame update
     void Start()
     {

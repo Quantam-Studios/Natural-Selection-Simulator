@@ -17,6 +17,7 @@ Asexual Reproduction Is Advantageous?
 - Size, sense radius, and speed are all inherited traits.
 - Trait values are not fixed, but smoothed allowing for greater variation.
 ## How To Use
+Download the latest build from the releases section on the right of this page. then follow the below steps to get up and running.
 1. Begin setting up simulation by pressing the “Setup A Simulation” button.
 2. Select the desired settings for the test. 
   - Choose the prey reproduction type 
@@ -28,11 +29,11 @@ Asexual Reproduction Is Advantageous?
   - Choose the data collection rate
   - Choose the time limit
   - Choose a folder name
-3. Click the “Run Simulation” button
+3. Click the “Run Simulation” button.
 
+Once you are in a simulation you can press the space key to pause it. This will bring up menu where you can quit the current simulation, set the time speed up value, and of course, resume the simulation.
 ## Background Information
-The Following text is from the Review of Literature section in the attached paper (pdf): Do Predator-Prey Relationships Affect Whether Sexual or
-Asexual Reproduction Is Advantageous?
+The Following text is from the Review of Literature section in the attached paper (pdf): [Do Predator-Prey Relationships Affect Whether Sexual or Asexual Reproduction Is Advantageous (1).pdf.](https://github.com/Quantam-Studios/Natural-Selection-Simulation--Science-Fair-21-22/blob/main/Do%20Predator-Prey%20Relationships%20Affect%20Whether%20Sexual%20or%20Asexual%20Reproduction%20Is%20Advantageous%20(1).pdf)
 ### What Is Natural Selection?
    The idea of natural selection was formed as part of Charles Darwin’s theory of evolution in 1859.  Natural selection is the idea that over time populations of living things adapt more and more to the environment around them. For example, an individual may possess a certain trait that makes it more likely for it to survive; that individual is then more likely to reproduce, passing the successful gene (and trait) onto the next generation.  Natural selection is limited by certain rules (Khan Academy, n.d.). A species’ traits and/or tendencies only change to reflect the current environment; genes tend to stay in a species if individuals with that gene survive long enough to mate (reproduce). However, the limited range of traits for a given species are determined by the available genes (making up the gene pool)--so new traits do not spring up from nowhere--unless there is a new mutation that can be tested against the selection pressures of the environment.  When a species has a large population with a distribution of genes, natural selection essentially experiments with which traits or genes should stay in species to help keep it alive over time. Eventually, favored traits will win out.  Natural selection cannot work without a reproducing population.  For most species, the absolute minimum number is 2 of a species in a given place (e.g. one male, one female). However, species that can reproduce asexually only need 1. Reproduction is when the changes to a population can really take place.  Natural selection can’t change a species’ current generation, but rather the following generation would be where the changes occur in the population (for example, genes leading to improved survival would be more common). 
 ### Sexual Reproduction

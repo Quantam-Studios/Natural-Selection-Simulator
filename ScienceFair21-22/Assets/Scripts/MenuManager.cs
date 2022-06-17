@@ -130,6 +130,27 @@ public class MenuManager : MonoBehaviour
 
     // THE FOLLOWING FUNCTIONS ARE CALLED WHEN BUTTONS ON THE "Pause Menu" ARE PRESSED
 
+    // SET TIME SPEED UP
+    public void SetTimeScale(InputField newTimeScale)
+    {
+        // ensure that the time scale is not set to nothing
+        if (newTimeScale.text != "")
+        {
+            // parse newTimeScale value to int
+            int newTimeScaleInt = Convert.ToInt16(newTimeScale.text, System.Globalization.CultureInfo.InvariantCulture);
+            // ensure the value is not set to 0 or under, and is not set to higher than 5
+            if (newTimeScaleInt <= 5 && newTimeScaleInt > 0)
+            {
+                timeScale = newTimeScaleInt;
+            }
+            // if greater than 5 then set to 5
+            else if (newTimeScaleInt > 5)
+            {
+                timeScale = 5;
+            }
+        }
+    }
+
     // END SIMULATION
     public void EndSimulation()
     {
@@ -143,6 +164,8 @@ public class MenuManager : MonoBehaviour
         pauseMenu.SetActive(false);
         // set false to allow pausing to happen again
         paused = false;
+        // get timeScale
+
         // start time
         Time.timeScale = timeScale;
     }
